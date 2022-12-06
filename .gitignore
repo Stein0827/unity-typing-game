@@ -4,3 +4,5 @@
 !/Packages/
 !/ProjectSettings
 !.gitignore
+*.meta
+/Assets/TextMesh Pro
