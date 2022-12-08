@@ -2,6 +2,7 @@
 /*/
 !/Assets/
 !/Packages/
+!/Build Settings/
 !/ProjectSettings
 !.gitignore
 /Assets/TextMesh Pro
