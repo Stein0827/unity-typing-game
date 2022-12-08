@@ -8,12 +8,19 @@ public class Keyboard : MonoBehaviour
     Image Q, W, E, R, T, Y, U, I, O, P;
     Image A, S, D, F, G, H, J, K, L;
     Image Z, X, C, V, B, N, M;
-    Color white, red;
+    Image Space;
+    Image LF1, LF2, LF3, LF4, LF5;
+    Image RF1, RF2, RF3, RF4, RF5;
+    Color red, blue, green, orange, purple, pink;
     // Start is called before the first frame update
     void Start()
     {
-        white = new Color(1f, 1f, 1f, 0.2f);
-        red = new Color(1f, 0f, 0f, 0.2f);
+        green = new Color(0f, 1f, 0f, 0.2f);
+        blue = new Color(0f, 0f, 1f, 0.2f);
+        purple = new Color(0.5f, 0f, 1f, 0.2f);
+        pink = new Color(1f, 0f, 0.5f, 0.2f);
+        orange = new Color(1f, 0.5f, 0f, 0.2f);
+        red = new Color(1f, 0f, 0f, 0.5f);
         // first row
         Q = GameObject.Find("Q").GetComponent<Image>(); W = GameObject.Find("W").GetComponent<Image>(); E = GameObject.Find("E").GetComponent<Image>();
         R = GameObject.Find("R").GetComponent<Image>(); T = GameObject.Find("T").GetComponent<Image>(); Y = GameObject.Find("Y").GetComponent<Image>();
@@ -27,23 +34,47 @@ public class Keyboard : MonoBehaviour
         Z = GameObject.Find("Z").GetComponent<Image>(); X = GameObject.Find("X").GetComponent<Image>(); C = GameObject.Find("C").GetComponent<Image>();
         V = GameObject.Find("V").GetComponent<Image>(); B = GameObject.Find("B").GetComponent<Image>(); N = GameObject.Find("N").GetComponent<Image>();
         M = GameObject.Find("M").GetComponent<Image>();
+        // space
+        Space = GameObject.Find("Space").GetComponent<Image>();
+        // left hand
+        LF1 = GameObject.Find("Left Finger 1").GetComponent<Image>(); LF2 = GameObject.Find("Left Finger 2").GetComponent<Image>();
+        LF3 = GameObject.Find("Left Finger 3").GetComponent<Image>(); LF4 = GameObject.Find("Left Finger 4").GetComponent<Image>();
+        LF5 = GameObject.Find("Left Finger 5").GetComponent<Image>();
+        // right hand
+        RF1 = GameObject.Find("Right Finger 1").GetComponent<Image>(); RF2 = GameObject.Find("Right Finger 2").GetComponent<Image>();
+        RF3 = GameObject.Find("Right Finger 3").GetComponent<Image>(); RF4 = GameObject.Find("Right Finger 4").GetComponent<Image>();
+        RF5 = GameObject.Find("Right Finger 5").GetComponent<Image>();
     }
 
     // Update is called once per frame
     void Update()
     {
         // first row
-        Q.color = Input.GetKey("q")? red : white; W.color = Input.GetKey("w")? red : white; E.color = Input.GetKey("e")? red : white;
-        R.color = Input.GetKey("r")? red : white; T.color = Input.GetKey("t")? red : white; Y.color = Input.GetKey("y")? red : white;
-        U.color = Input.GetKey("u")? red : white; I.color = Input.GetKey("i")? red : white; O.color = Input.GetKey("o")? red : white;
-        P.color = Input.GetKey("p")? red : white;
+        Q.color = Input.GetKey("q")? red : green; W.color = Input.GetKey("w")? red : blue; E.color = Input.GetKey("e")? red : purple;
+        R.color = Input.GetKey("r")? red : pink; T.color = Input.GetKey("t")? red : pink; Y.color = Input.GetKey("y")? red : green;
+        U.color = Input.GetKey("u")? red : green; I.color = Input.GetKey("i")? red : blue; O.color = Input.GetKey("o")? red : purple;
+        P.color = Input.GetKey("p")? red : pink;
         // second row
-        A.color = Input.GetKey("a")? red : white; S.color = Input.GetKey("s")? red : white; D.color = Input.GetKey("d")? red : white;
-        F.color = Input.GetKey("f")? red : white; G.color = Input.GetKey("g")? red : white; H.color = Input.GetKey("h")? red : white;
-        J.color = Input.GetKey("j")? red : white; K.color = Input.GetKey("k")? red : white; L.color = Input.GetKey("l")? red : white;
+        A.color = Input.GetKey("a")? red : green; S.color = Input.GetKey("s")? red : blue; D.color = Input.GetKey("d")? red : purple;
+        F.color = Input.GetKey("f")? red : pink; G.color = Input.GetKey("g")? red : pink; H.color = Input.GetKey("h")? red : green;
+        J.color = Input.GetKey("j")? red : green; K.color = Input.GetKey("k")? red : blue; L.color = Input.GetKey("l")? red : purple;
         // third row
-        Z.color = Input.GetKey("z")? red : white; X.color = Input.GetKey("x")? red : white; C.color = Input.GetKey("c")? red : white;
-        V.color = Input.GetKey("v")? red : white; B.color = Input.GetKey("b")? red : white; N.color = Input.GetKey("n")? red : white;
-        M.color = Input.GetKey("m")? red : white;
+        Z.color = Input.GetKey("z")? red : green; X.color = Input.GetKey("x")? red : blue; C.color = Input.GetKey("c")? red : purple;
+        V.color = Input.GetKey("v")? red : pink; B.color = Input.GetKey("b")? red : pink; N.color = Input.GetKey("n")? red : green;
+        M.color = Input.GetKey("m")? red : green;
+        // space
+        Space.color = Input.GetKey("space")? red : orange;
+        // left hand
+        LF1.color = (Input.GetKey("r") || Input.GetKey("t") || Input.GetKey("f") || Input.GetKey("g") || Input.GetKey("v") || Input.GetKey("b"))? red : pink;
+        LF2.color = (Input.GetKey("e") || Input.GetKey("d") || Input.GetKey("c"))? red : purple;
+        LF3.color = (Input.GetKey("w") || Input.GetKey("s") || Input.GetKey("x"))? red : blue;
+        LF4.color = (Input.GetKey("q") || Input.GetKey("a") || Input.GetKey("z"))? red : green;
+        LF5.color = Input.GetKey("space")? red : orange;
+        // right hand
+        RF1.color = (Input.GetKey("y") || Input.GetKey("u") || Input.GetKey("h") || Input.GetKey("j") || Input.GetKey("n") || Input.GetKey("m"))? red : green;
+        RF2.color = (Input.GetKey("i") || Input.GetKey("k"))? red : blue;
+        RF3.color = (Input.GetKey("o") || Input.GetKey("l"))? red : purple;
+        RF4.color = Input.GetKey("p")? red : pink;
+        RF5.color = Input.GetKey("space")? red : orange;
     }
 }
