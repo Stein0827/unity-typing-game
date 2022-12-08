@@ -7,7 +7,7 @@ public class Keyboard : MonoBehaviour
 {
     Image Q, W, E, R, T, Y, U, I, O, P;
     Image A, S, D, F, G, H, J, K, L;
-    Image Z, X, C, V, B, N, M;
+    Image Z, X, C, V, B, N, M, Comma, Period;
     Image Space;
     Image LF1, LF2, LF3, LF4, LF5;
     Image RF1, RF2, RF3, RF4, RF5;
@@ -33,7 +33,7 @@ public class Keyboard : MonoBehaviour
         // third row
         Z = GameObject.Find("Z").GetComponent<Image>(); X = GameObject.Find("X").GetComponent<Image>(); C = GameObject.Find("C").GetComponent<Image>();
         V = GameObject.Find("V").GetComponent<Image>(); B = GameObject.Find("B").GetComponent<Image>(); N = GameObject.Find("N").GetComponent<Image>();
-        M = GameObject.Find("M").GetComponent<Image>();
+        M = GameObject.Find("M").GetComponent<Image>(); Comma = GameObject.Find("Comma").GetComponent<Image>(); Period = GameObject.Find("Period").GetComponent<Image>();
         // space
         Space = GameObject.Find("Space").GetComponent<Image>();
         // left hand
@@ -61,7 +61,7 @@ public class Keyboard : MonoBehaviour
         // third row
         Z.color = Input.GetKey("z")? red : green; X.color = Input.GetKey("x")? red : blue; C.color = Input.GetKey("c")? red : purple;
         V.color = Input.GetKey("v")? red : pink; B.color = Input.GetKey("b")? red : pink; N.color = Input.GetKey("n")? red : green;
-        M.color = Input.GetKey("m")? red : green;
+        M.color = Input.GetKey("m")? red : green; Comma.color = Input.GetKey(",")? red : blue; Period.color = Input.GetKey(".")? red : purple;
         // space
         Space.color = Input.GetKey("space")? red : orange;
         // left hand
@@ -72,8 +72,8 @@ public class Keyboard : MonoBehaviour
         LF5.color = Input.GetKey("space")? red : orange;
         // right hand
         RF1.color = (Input.GetKey("y") || Input.GetKey("u") || Input.GetKey("h") || Input.GetKey("j") || Input.GetKey("n") || Input.GetKey("m"))? red : green;
-        RF2.color = (Input.GetKey("i") || Input.GetKey("k"))? red : blue;
-        RF3.color = (Input.GetKey("o") || Input.GetKey("l"))? red : purple;
+        RF2.color = (Input.GetKey("i") || Input.GetKey("k") || Input.GetKey(","))? red : blue;
+        RF3.color = (Input.GetKey("o") || Input.GetKey("l") || Input.GetKey("."))? red : purple;
         RF4.color = Input.GetKey("p")? red : pink;
         RF5.color = Input.GetKey("space")? red : orange;
     }
