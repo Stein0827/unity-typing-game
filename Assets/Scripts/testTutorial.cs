@@ -12,6 +12,7 @@ public class testTutorial : MonoBehaviour
     private float shooting_delay; 
     private GameObject projectile_template;
     private GameObject mainCamera;
+    public int health;
     // private TextMeshPro te
     
     private Image img;
@@ -54,21 +55,26 @@ public class testTutorial : MonoBehaviour
             {
                 Debug.Log("will make slime");
                 var starting_pos = new Vector3(Random.Range(-5.0f, 5.0f), 0.0f, 5.0f);
-                GameObject new_object = Instantiate(projectile_template, starting_pos, Quaternion.identity);
-                GameObject obj = new GameObject("Text");
-                TextMeshPro t = obj.AddComponent<TextMeshPro>();
-                t.color = new Color(0, 0, 0);
-                RectTransform rt = t.GetComponent<RectTransform>();
-                rt.sizeDelta = new Vector2(5, 2);                
-                t.text = "new text set";
-                t.alignment = TextAlignmentOptions.Center;
-                t.fontSize = 3 ;
-                obj.transform.position = new_object.transform.position;
-                obj.transform.position += new Vector3(0f, 1f, 0f);
-                obj.transform.SetParent(new_object.transform);
-                new_object.tag = "Slime";
-                new_object.transform.LookAt(mainCamera.transform);
-                new_object.AddComponent<Slime_Animator>();
+                Debug.Log(GameObject.FindGameObjectsWithTag("Slime"));
+                if (GameObject.FindGameObjectsWithTag("Slime").Length == 0)
+                {
+                    GameObject new_object = Instantiate(projectile_template, starting_pos, Quaternion.identity);
+                    GameObject obj = new GameObject("Text");
+                    TextMeshPro t = obj.AddComponent<TextMeshPro>();
+                    t.color = new Color(0, 0, 0);
+                    RectTransform rt = t.GetComponent<RectTransform>();
+                    rt.sizeDelta = new Vector2(5, 2);                
+                    t.text = "new text set";
+                    t.alignment = TextAlignmentOptions.Center;
+                    t.fontSize = 3 ;
+                    obj.transform.position = new_object.transform.position;
+                    obj.transform.position += new Vector3(0f, 1f, 0f);
+                    obj.transform.SetParent(new_object.transform);
+                    new_object.tag = "Slime";
+                    new_object.transform.LookAt(mainCamera.transform);
+                    obj.transform.Rotate(0f, 180f, 0f);
+                    new_object.AddComponent<Slime_Animator>();
+                }
                 // new_object.transform.rotate((90.0f, 0.0f, 0.0f, Space.Self);)
                 // TextMeshProUGUI  t = new_object.AddComponent<TextMeshProUGUI>();
                 // new_object   .tag = "Slime";
