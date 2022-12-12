@@ -6,8 +6,8 @@ using TMPro;
 
 public class Keyboard : MonoBehaviour
 {
-    string word;
-    List<string> word_list;
+    public string word;
+    GameObject[] slime_array;
     Image Q, W, E, R, T, Y, U, I, O, P;
     Image A, S, D, F, G, H, J, K, L;
     Image Z, X, C, V, B, N, M, Comma, Period;
@@ -20,8 +20,8 @@ public class Keyboard : MonoBehaviour
     void Start()
     {
         word = "";
-        word_list = new List<string> {"hi", "hello"};
         cur_word_text = GameObject.Find("Current Word").GetComponent<TMPro.TextMeshProUGUI>();
+        slime_array = GameObject.FindGameObjectsWithTag("Word");
         green = new Color(0f, 1f, 0f, 0.2f);
         blue = new Color(0f, 0f, 1f, 0.2f);
         purple = new Color(0.5f, 0f, 1f, 0.2f);
@@ -98,10 +98,13 @@ public class Keyboard : MonoBehaviour
             word += " ";
             cur_word_text.text = word;
         }
-        if(word_list.Contains(word)) {
-            word_list.Remove(word);
-            word = "";
-            cur_word_text.text = word;
+        slime_array = GameObject.FindGameObjectsWithTag("Word");
+        foreach (GameObject slime in slime_array) {
+            if(slime.GetComponent<TextMeshPro>().text == word) {
+                word = "";
+                cur_word_text.text = word;
+                Destroy(slime.transform.parent.gameObject);
+            }
         }
     }
 }

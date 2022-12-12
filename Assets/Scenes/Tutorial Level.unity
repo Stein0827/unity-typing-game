@@ -388,6 +388,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   b1: {fileID: 1349199689}
+  health: 0
 --- !u!222 &711905862
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -754,7 +755,7 @@ GameObject:
   - component: {fileID: 1349199690}
   - component: {fileID: 1349199689}
   m_Layer: 5
-  m_Name: test
+  m_Name: Start Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1342,11 +1343,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6064910164155940341, guid: cedf2be9aa74d5c409d6bf4b6e339460, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -356
       objectReference: {fileID: 0}
     - target: {fileID: 6064910164155940341, guid: cedf2be9aa74d5c409d6bf4b6e339460, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -63
       objectReference: {fileID: 0}
     - target: {fileID: 6064910164155940341, guid: cedf2be9aa74d5c409d6bf4b6e339460, type: 3}
       propertyPath: m_LocalPosition.z
