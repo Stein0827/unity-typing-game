@@ -68,6 +68,7 @@ public class testTutorial : MonoBehaviour
                 obj.transform.SetParent(new_object.transform);
                 new_object.tag = "Slime";
                 new_object.transform.LookAt(mainCamera.transform);
+                new_object.AddComponent<Slime_Animator>();
                 // new_object.transform.rotate((90.0f, 0.0f, 0.0f, Space.Self);)
                 // TextMeshProUGUI  t = new_object.AddComponent<TextMeshProUGUI>();
                 // new_object   .tag = "Slime";
