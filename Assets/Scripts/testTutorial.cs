@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-
+using UnityEngine.SceneManagement;
 
 public class testTutorial : MonoBehaviour
 {
     public Button b1;
+    public TextMeshProUGUI paragraph;
     private TextMeshProUGUI b1text; 
     private float shooting_delay; 
     private GameObject projectile_template;
@@ -37,10 +38,10 @@ public class testTutorial : MonoBehaviour
         if(b1text.text == "Start"){
             b1text.text = "Stop";
             img.enabled = false;
+            paragraph.enabled = false;
         }
         else{
-            b1text.text = "Start";
-            img.enabled = true;
+            SceneManager.LoadScene("startScreen");
         }
 
         StartCoroutine("Spawn");
