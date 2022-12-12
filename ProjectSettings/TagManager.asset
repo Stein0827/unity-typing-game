@@ -4,8 +4,8 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Word
   - Slime
+  - Word
   layers:
   - Default
   - TransparentFX
