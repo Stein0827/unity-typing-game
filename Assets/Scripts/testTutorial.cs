@@ -11,20 +11,17 @@ public class testTutorial : MonoBehaviour
     private TextMeshProUGUI b1text; 
     private float shooting_delay; 
     private GameObject projectile_template;
-    // private Vector3 starting_pos_1;
-    // private Vector3 starting_pos_2;
-
-    // public Canvas myCanvas;
+    
+    private Image img;
     // Start is called before the first frame update
     void Start()
     {
-        // starting_pos_1 = new Vector3(5.0f, 0.0f, 5.0f);
-        // starting_pos_2 = new Vector3(-5.0f, 0.0f, 5.0f);
+      
         shooting_delay = 0.5f;  
         projectile_template = (GameObject)Resources.Load("basic slime/Prefab/Slime_01", typeof(GameObject));  // projectile prefab
         b1text = b1.GetComponentInChildren<TextMeshProUGUI>();
         b1.onClick.AddListener(begin);
-
+        img = GameObject.Find("Canvas").GetComponent<Image>();
     }
 
     // Update is called once per frame
@@ -36,14 +33,15 @@ public class testTutorial : MonoBehaviour
     void begin(){
         if(b1text.text == "Start"){
             b1text.text = "Stop";
+            img.enabled = false;
         }
         else{
             b1text.text = "Start";
+            img.enabled = true;
         }
 
         StartCoroutine("Spawn");
 
-        // myCanvas.GetComponent<Canvas> ().enabled = false;
     }
 
     private IEnumerator Spawn()
