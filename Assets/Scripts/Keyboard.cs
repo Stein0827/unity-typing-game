@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class Keyboard : MonoBehaviour
 {
+    string word;
+    List<string> word_list;
     Image Q, W, E, R, T, Y, U, I, O, P;
     Image A, S, D, F, G, H, J, K, L;
     Image Z, X, C, V, B, N, M, Comma, Period;
@@ -12,9 +15,13 @@ public class Keyboard : MonoBehaviour
     Image LF1, LF2, LF3, LF4, LF5;
     Image RF1, RF2, RF3, RF4, RF5;
     Color red, blue, green, orange, purple, pink;
+    TextMeshProUGUI cur_word_text;
     // Start is called before the first frame update
     void Start()
     {
+        word = "";
+        word_list = new List<string> {"hi", "hello"};
+        cur_word_text = GameObject.Find("Current Word").GetComponent<TMPro.TextMeshProUGUI>();
         green = new Color(0f, 1f, 0f, 0.2f);
         blue = new Color(0f, 0f, 1f, 0.2f);
         purple = new Color(0.5f, 0f, 1f, 0.2f);
@@ -76,5 +83,25 @@ public class Keyboard : MonoBehaviour
         RF3.color = (Input.GetKey("o") || Input.GetKey("l") || Input.GetKey("."))? red : purple;
         RF4.color = Input.GetKey("p")? red : pink;
         RF5.color = Input.GetKey("space")? red : orange;
+
+        for(int i = 97; i<123; i++) {
+            if(Input.GetKeyDown(((char)i).ToString())) {
+                word += (char)i;
+                cur_word_text.text = word;
+            }
+        }
+        if(Input.GetKeyDown("backspace") && word != "") {
+            word = word.Remove(word.Length - 1, 1);
+            cur_word_text.text = word;
+        }
+        if(Input.GetKeyDown("space")) {
+            word += " ";
+            cur_word_text.text = word;
+        }
+        if(word_list.Contains(word)) {
+            word_list.Remove(word);
+            word = "";
+            cur_word_text.text = word;
+        }
     }
 }
