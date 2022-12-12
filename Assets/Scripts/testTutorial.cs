@@ -11,14 +11,15 @@ public class testTutorial : MonoBehaviour
     private TextMeshProUGUI b1text; 
     private float shooting_delay; 
     private GameObject projectile_template;
+    private GameObject mainCamera;
     // private TextMeshPro te
     
     private Image img;
     // Start is called before the first frame update
     void Start()
     {
-      
-        shooting_delay = 10.5f;  
+        mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+        shooting_delay = 1.5f;  
         projectile_template = (GameObject)Resources.Load("basic slime/Prefab/Slime_01", typeof(GameObject));  // projectile prefab
         b1text = b1.GetComponentInChildren<TextMeshProUGUI>();
         b1.onClick.AddListener(begin);
@@ -66,6 +67,8 @@ public class testTutorial : MonoBehaviour
                 obj.transform.position += new Vector3(0f, 1f, 0f);
                 obj.transform.SetParent(new_object.transform);
                 new_object.tag = "Slime";
+                new_object.transform.LookAt(mainCamera.transform);
+                // new_object.transform.rotate((90.0f, 0.0f, 0.0f, Space.Self);)
                 // TextMeshProUGUI  t = new_object.AddComponent<TextMeshProUGUI>();
                 // new_object   .tag = "Slime";
                 // new_object.AddComponent<Canvas>();
