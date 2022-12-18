@@ -8,11 +8,17 @@ public class level1 : MonoBehaviour
 {
     public GameObject wall_prefab;
     public GameObject banner_prefab;
-    public GameObject wallTorch_prefab;     
+    public GameObject wallTorch_prefab;
+    public GameObject crate_prefab;
+    public GameObject pot_prefab;
+    public GameObject table_prefab;
+    public GameObject rock_prefab;   
+    public GameObject pot_particle_prefab;  
     // Start is called before the first frame update
     void Start()
     {
         generateWalls();
+        generateFloor();
     }
 
     void generateWalls(){
@@ -65,6 +71,66 @@ public class level1 : MonoBehaviour
                 banner.transform.Rotate(0f, rotation, 0f);
             }
         }
+    }
+
+    void generateFloor(){
+        for (int i=0; i < 90; i = i + 15){
+            int which = Random.Range(1, 5);
+            float x = Random.Range(4.0f, 7.0f);
+            float y = Random.Range(6.0f, 8.0f);
+            generateItem(which, x, y + i);
+            which = Random.Range(1, 5);
+            x = Random.Range(-4.0f, -7.0f);
+            y = Random.Range(6.0f, 8.0f);
+            generateItem(which, x, y + i);
+            which = Random.Range(1, 5);
+            x = Random.Range(4.0f, 7.0f);
+            y = Random.Range(10.0f, 12.0f);
+            generateItem(which, x, y + i);
+            which = Random.Range(1, 5);
+            x = Random.Range(-4.0f, -7.0f);
+            y = Random.Range(10.0f, 12.0f);
+            generateItem(which, x, y + i);
+        }
+    }
+
+    void generateItem(int which, float x, float y){
+        switch (which)
+        {
+            case 1:
+                tableAddons(x, y);
+                break;
+            case 2:
+                GameObject crate = Instantiate(crate_prefab, new Vector3(0, 0, 0), Quaternion.identity);
+                crate.transform.position = new Vector3(x, 0.0f, y);
+                crate.transform.Rotate(0f, Random.Range(0.0f, 360.0f), 0f);
+                break;
+            case 3:
+                GameObject rock = Instantiate(rock_prefab, new Vector3(0, 0, 0), Quaternion.identity);
+                rock.transform.position = new Vector3(x, 0.0f, y);
+                rock.transform.Rotate(0f, Random.Range(0.0f, 360.0f), 0f);
+                break;
+            case 4:
+                GameObject pot = Instantiate(pot_prefab, new Vector3(0, 0, 0), Quaternion.identity);
+                pot.transform.position = new Vector3(x, 0.0f, y);
+                pot.transform.Rotate(0f, Random.Range(0.0f, 360.0f), 0f);
+                GameObject particles = Instantiate(pot_particle_prefab, new Vector3(0, 0, 0), Quaternion.identity);
+                particle.transform.position = new Vector3(x, 0.6652534f, y);
+                break;
+        }
+    }
+
+    void tableAddons(float x, float z){
+        if(Random.value > 0.5f){
+            GameObject table = Instantiate(table_prefab, new Vector3(0, 0, 0), Quaternion.identity);
+            table.transform.position = new Vector3(x, 0.0f, y);
+        }
+        else{
+            GameObject table = Instantiate(table_prefab, new Vector3(0, 0, 0), Quaternion.identity);
+            table.transform.position = new Vector3(x, 0.0f, y);
+        }
+
+
     }
 
     // Update is called once per frame
