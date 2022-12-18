@@ -19,11 +19,13 @@ public class level1 : MonoBehaviour
     public GameObject book_prefab;
     public GameObject jug_prefab;
     public GameObject bottle_prefab;  
+    public GameObject light_column_prefab;
     // Start is called before the first frame update
     void Start()
     {
         generateWalls();
         generateFloor();
+        finalRoom();
     }
 
     void generateWalls(){
@@ -245,8 +247,16 @@ public class level1 : MonoBehaviour
                     break;
             }
         }
+    }
 
-
+    void finalRoom(){
+        for (int i = 0; i < 3; i++){
+            GameObject l_column = Instantiate(light_column_prefab, new Vector3(0, 0, 0), Quaternion.identity);
+            l_column.transform.position = new Vector3(5f, 0f, 95f + 7.5f*i);
+            GameObject r_column = Instantiate(light_column_prefab, new Vector3(0, 0, 0), Quaternion.identity);
+            r_column.transform.position = new Vector3(-5f, 0f, 95f + 7.5f*i);
+            
+        }
     }
 
     // Update is called once per frame
