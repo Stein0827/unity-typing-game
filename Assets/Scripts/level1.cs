@@ -13,7 +13,12 @@ public class level1 : MonoBehaviour
     public GameObject pot_prefab;
     public GameObject table_prefab;
     public GameObject rock_prefab;   
-    public GameObject pot_particle_prefab;  
+    public GameObject pot_particle_prefab;
+    public GameObject chair_prefab;
+    public GameObject candle_prefab;
+    public GameObject book_prefab;
+    public GameObject jug_prefab;
+    public GameObject bottle_prefab;  
     // Start is called before the first frame update
     void Start()
     {
@@ -124,11 +129,121 @@ public class level1 : MonoBehaviour
         if(Random.value > 0.5f){
             GameObject table = Instantiate(table_prefab, new Vector3(0, 0, 0), Quaternion.identity);
             table.transform.position = new Vector3(x, 0.0f, z);
+            if (Random.value < 0.33f){
+                GameObject chair = Instantiate(chair_prefab, new Vector3(0, 0, 0), Quaternion.identity);
+                chair.transform.position = new Vector3(x + 0.5f, 0f, z - 1f);
+            }
+            if (Random.value < 0.33f){
+                GameObject chair = Instantiate(chair_prefab, new Vector3(0, 0, 0), Quaternion.identity);
+                chair.transform.position = new Vector3(x - 0.5f, 0f, z - 1f);
+            }
+            if (Random.value < 0.33f){
+                GameObject chair = Instantiate(chair_prefab, new Vector3(0, 0, 0), Quaternion.identity);
+                chair.transform.position = new Vector3(x - 0.5f, 0f, z + 1f);
+                chair.transform.Rotate(0f, 180f, 0f);
+            }
+            if (Random.value < 0.33f){
+                GameObject chair = Instantiate(chair_prefab, new Vector3(0, 0, 0), Quaternion.identity);
+                chair.transform.position = new Vector3(x - 0.5f, 0f, z + 1f);
+                chair.transform.Rotate(0f, 180f, 0f);
+            }
+
+            int obj1 = Random.Range(1,4);
+            switch(obj1){
+                case 1:
+                    GameObject jug = Instantiate(jug_prefab, new Vector3(0, 0, 0), Quaternion.identity);
+                    jug.transform.position = new Vector3(x + Random.Range(0.4f, 0.8f), 0.8900766f, z + Random.Range(-0.3f, 0.3f));
+                    break;
+                case 2:
+                    GameObject book = Instantiate(book_prefab, new Vector3(0, 0, 0), Quaternion.identity);
+                    book.transform.position = new Vector3(x + Random.Range(0.4f, 0.8f), 0.9220155f, z + Random.Range(-0.3f, 0.3f));
+                    break;
+                case 3:
+                    GameObject candle = Instantiate(candle_prefab, new Vector3(0, 0, 0), Quaternion.identity);
+                    candle.transform.position = new Vector3(x + Random.Range(0.2f, 0.8f), 0.8842584f, z + Random.Range(0.1f, 0.4f));
+                    GameObject bottle = Instantiate(bottle_prefab, new Vector3(0, 0, 0), Quaternion.identity);
+                    bottle.transform.position = new Vector3(x + Random.Range(0.2f, 0.8f), 0.891011f, z - Random.Range(0.1f, 0.4f));
+                    break;
+            }
+            int obj2 = Random.Range(1,4);
+            switch(obj2){
+                case 1:
+                    GameObject jug = Instantiate(jug_prefab, new Vector3(0, 0, 0), Quaternion.identity);
+                    jug.transform.position = new Vector3(x - Random.Range(0.4f, 0.8f), 0.8900766f, z + Random.Range(-0.3f, 0.3f));
+                    break;
+                case 2:
+                    GameObject book = Instantiate(book_prefab, new Vector3(0, 0, 0), Quaternion.identity);
+                    book.transform.position = new Vector3(x - Random.Range(0.4f, 0.8f), 0.9220155f, z + Random.Range(-0.3f, 0.3f));
+                    break;
+                case 3:
+                    GameObject candle = Instantiate(candle_prefab, new Vector3(0, 0, 0), Quaternion.identity);
+                    candle.transform.position = new Vector3(x - Random.Range(0.2f, 0.8f), 0.8842584f, z + Random.Range(0.1f, 0.4f));
+                    GameObject bottle = Instantiate(bottle_prefab, new Vector3(0, 0, 0), Quaternion.identity);
+                    bottle.transform.position = new Vector3(x - Random.Range(0.2f, 0.8f), 0.891011f, z - Random.Range(0.1f, 0.4f));
+                    break;
+            }
+
         }
         else{
             GameObject table = Instantiate(table_prefab, new Vector3(0, 0, 0), Quaternion.identity);
             table.transform.position = new Vector3(x, 0.0f, z);
             table.transform.Rotate(0f, 90f, 0f);
+            if (Random.value < 0.33f){
+                GameObject chair = Instantiate(chair_prefab, new Vector3(0, 0, 0), Quaternion.identity);
+                chair.transform.position = new Vector3(x - 1f, 0f, z + 0.5f);
+                chair.transform.Rotate(0f, 90f, 0f);
+            }
+            if (Random.value < 0.33f){
+                GameObject chair = Instantiate(chair_prefab, new Vector3(0, 0, 0), Quaternion.identity);
+                chair.transform.position = new Vector3(x - 1f, 0f, z - 0.5f);
+                chair.transform.Rotate(0f, 90f, 0f);
+
+            }
+            if (Random.value < 0.33f){
+                GameObject chair = Instantiate(chair_prefab, new Vector3(0, 0, 0), Quaternion.identity);
+                chair.transform.position = new Vector3(x + 1f, 0f, z - 0.5f);
+                chair.transform.Rotate(0f, 270f, 0f);
+            }
+            if (Random.value < 0.33f){
+                GameObject chair = Instantiate(chair_prefab, new Vector3(0, 0, 0), Quaternion.identity);
+                chair.transform.position = new Vector3(x + 1f, 0f, z + 0.5f);
+                chair.transform.Rotate(0f, 270f, 0f);
+            }
+
+            int obj1 = Random.Range(1,4);
+            switch(obj1){
+                case 1:
+                    GameObject jug = Instantiate(jug_prefab, new Vector3(0, 0, 0), Quaternion.identity);
+                    jug.transform.position = new Vector3(x + Random.Range(-0.3f, 0.3f), 0.8900766f, z + Random.Range(0.4f, 0.8f));
+                    break;
+                case 2:
+                    GameObject book = Instantiate(book_prefab, new Vector3(0, 0, 0), Quaternion.identity);
+                    book.transform.position = new Vector3(x + Random.Range(-0.3f, 0.3f), 0.9220155f, z + Random.Range(0.4f, 0.8f));
+                    break;
+                case 3:
+                    GameObject candle = Instantiate(candle_prefab, new Vector3(0, 0, 0), Quaternion.identity);
+                    candle.transform.position = new Vector3(x + Random.Range(0.1f, 0.4f), 0.8842584f, z + Random.Range(0.2f, 0.8f));
+                    GameObject bottle = Instantiate(bottle_prefab, new Vector3(0, 0, 0), Quaternion.identity);
+                    bottle.transform.position = new Vector3(x - Random.Range(0.1f, 0.4f), 0.891011f, z + Random.Range(0.2f, 0.8f));
+                    break;
+            }
+            int obj2 = Random.Range(1,4);
+            switch(obj2){
+                case 1:
+                    GameObject jug = Instantiate(jug_prefab, new Vector3(0, 0, 0), Quaternion.identity);
+                    jug.transform.position = new Vector3(x + Random.Range(-0.3f, 0.3f), 0.8900766f, z - Random.Range(0.4f, 0.8f));
+                    break;
+                case 2:
+                    GameObject book = Instantiate(book_prefab, new Vector3(0, 0, 0), Quaternion.identity);
+                    book.transform.position = new Vector3(x + Random.Range(-0.3f, 0.3f), 0.9220155f, z - Random.Range(0.4f, 0.8f));
+                    break;
+                case 3:
+                    GameObject candle = Instantiate(candle_prefab, new Vector3(0, 0, 0), Quaternion.identity);
+                    candle.transform.position = new Vector3(x + Random.Range(0.1f, 0.4f), 0.8842584f, z - Random.Range(0.2f, 0.8f));
+                    GameObject bottle = Instantiate(bottle_prefab, new Vector3(0, 0, 0), Quaternion.identity);
+                    bottle.transform.position = new Vector3(x - Random.Range(0.1f, 0.4f), 0.891011f, z - Random.Range(0.2f, 0.8f));
+                    break;
+            }
         }
 
 

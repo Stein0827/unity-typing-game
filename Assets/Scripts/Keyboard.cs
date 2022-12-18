@@ -6,7 +6,6 @@ using TMPro;
 
 public class Keyboard : MonoBehaviour
 {
-    public string word;
     public Slime_Animator animator_script;
     private string word;
     GameObject[] slime_array;
