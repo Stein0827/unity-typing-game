@@ -30,6 +30,15 @@ public class level1 : MonoBehaviour
             end_wall.transform.Rotate(0f, 180f, 0f);
             end_wall.transform.localScale = new Vector3(1.25f, 1f, 1f);
         }
+
+        for (int i=15; i < 105; i = i + 15){
+            for (int j = 0; j < 5; j++){
+                GameObject mid_wall = Instantiate(wall_prefab, new Vector3(0, 0, 0), Quaternion.identity);
+                mid_wall.transform.position = new Vector3(-8f + 4f*j, 0.0f, i);
+                mid_wall.transform.Rotate(0f, 180f, 0f);
+                // end_wall.transform.localScale = new Vector3(1.25f, 1f, 1f);
+            }
+        }
     }
 
     // Update is called once per frame
