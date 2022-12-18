@@ -4,19 +4,21 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+using System.IO;
+using Rnd = System.Random;
 
-public class testTutorial : MonoBehaviour
+public class canvasL1 : MonoBehaviour
 {
     public Button play_pause;
     public Button return_to_menu;
-    public TextMeshProUGUI paragraph;
     private TextMeshProUGUI play_pause_text; 
     private float shooting_delay; 
     private GameObject projectile_template;
     private GameObject mainCamera;
-    // private TextMeshPro te
+    string path;
+    string[] readText;
+    static Rnd rnd;
     
-    private Image img;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,20 +28,18 @@ public class testTutorial : MonoBehaviour
         play_pause_text = play_pause.GetComponentInChildren<TextMeshProUGUI>();
         play_pause.onClick.AddListener(begin);
         return_to_menu.onClick.AddListener(main_menu);
-        img = GameObject.Find("Canvas").GetComponent<Image>();
+        path = @"Assets/Words/american-words.35.txt";
+        readText = File.ReadAllLines(path);
+        rnd = new Rnd();
     }
 
     void begin() {
         if(play_pause_text.text == "Start"){
             play_pause_text.text = "Pause";
-            img.enabled = false;
-            paragraph.enabled = false;
             return_to_menu.gameObject.SetActive(false);
             StartCoroutine("Spawn");
         } else{
             play_pause_text.text = "Start";
-            img.enabled = true;
-            paragraph.enabled = true;
             return_to_menu.gameObject.SetActive(true);
             StopCoroutine("Spawn");
             foreach (GameObject slime in GameObject.FindGameObjectsWithTag("Word")) {
@@ -58,18 +58,22 @@ public class testTutorial : MonoBehaviour
         {            
             if (play_pause_text.text == "Pause")
             {
-                var starting_pos = new Vector3(Random.Range(-5.0f, 5.0f), 0.0f, 5.0f);
+                var starting_pos = mainCamera.transform.position + new Vector3(Random.Range(-5.0f, 5.0f), 0.0f, 15.0f);
                 if (GameObject.FindGameObjectsWithTag("Slime").Length < 3)
                 {
                     GameObject new_object = Instantiate(projectile_template, starting_pos, Quaternion.identity);
                     GameObject obj = new GameObject("Text");
                     TextMeshPro t = obj.AddComponent<TextMeshPro>();
-                    t.color = new Color(0, 0, 0);
+                    t.color = new Color(1f, 1f, 1f);
                     RectTransform rt = t.GetComponent<RectTransform>();
-                    rt.sizeDelta = new Vector2(5, 2);                
-                    t.text = ((char)(int)Random.Range(97f, 123f)).ToString();
+                    rt.sizeDelta = new Vector2(5, 2);
+                    int r = rnd.Next(readText.Length);
+                    while (readText[r].Contains("'")) {
+                        r = rnd.Next(readText.Length);
+                    }
+                    t.text = readText[r].ToLower();
                     t.alignment = TextAlignmentOptions.Center;
-                    t.fontSize = 3 ;
+                    t.fontSize = 3;
                     obj.transform.position = new_object.transform.position;
                     obj.transform.position += new Vector3(0f, 1f, 0f);
                     obj.transform.SetParent(new_object.transform);

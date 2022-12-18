@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class Keyboard : MonoBehaviour
+public class KeyboardL1 : MonoBehaviour
 {
     private string word;
     GameObject[] slime_array;
