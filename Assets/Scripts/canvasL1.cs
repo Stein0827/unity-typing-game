@@ -63,8 +63,11 @@ public class canvasL1 : MonoBehaviour
                 {
                     GameObject new_object = Instantiate(projectile_template, starting_pos, Quaternion.identity);
                     GameObject obj = new GameObject("Text");
+                    GameObject pln  = GameObject.CreatePrimitive(PrimitiveType.Plane);
+                    pln.transform.Rotate(90, 0, 0);
+                    pln.transform.localScale = new Vector3(0.3f, 1f, 0.1f);
                     TextMeshPro t = obj.AddComponent<TextMeshPro>();
-                    t.color = new Color(1f, 1f, 1f);
+                    t.color = new Color(0f, 0f, 0f);
                     RectTransform rt = t.GetComponent<RectTransform>();
                     rt.sizeDelta = new Vector2(5, 2);
                     int r = rnd.Next(readText.Length);
@@ -73,14 +76,15 @@ public class canvasL1 : MonoBehaviour
                     }
                     t.text = readText[r].ToLower();
                     t.alignment = TextAlignmentOptions.Center;
-                    t.fontSize = 3;
-                    obj.transform.position = new_object.transform.position;
-                    obj.transform.position += new Vector3(0f, 1f, 0f);
+                    t.fontSize = 5;
+                    obj.transform.position = new_object.transform.position + new Vector3(0f, 1f, 0f);
                     obj.transform.SetParent(new_object.transform);
+                    pln.transform.position = new_object.transform.position + new Vector3(0f, 1f, -0.1f);
+                    pln.transform.SetParent(new_object.transform);
                     new_object.tag = "Slime";
                     obj.tag = "Word";
                     new_object.transform.LookAt(mainCamera.transform);
-                    obj.transform.Rotate(0f, 180f, 0f);
+                    obj.transform.Rotate(0, 180, 0);
                     new_object.AddComponent<Slime_Animator>();
                 }
             }

@@ -16,9 +16,11 @@ public class KeyboardL1 : MonoBehaviour
     Image RF1, RF2, RF3, RF4, RF5;
     Color red, blue, green, orange, purple, pink;
     TextMeshProUGUI cur_word_text;
+    float startTime;
     // Start is called before the first frame update
     void Start()
     {
+        startTime = 0f;
         word = "";
         cur_word_text = GameObject.Find("Current Word").GetComponent<TMPro.TextMeshProUGUI>();
         slime_array = GameObject.FindGameObjectsWithTag("Word");
@@ -90,7 +92,13 @@ public class KeyboardL1 : MonoBehaviour
                 cur_word_text.text = word;
             }
         }
-        if(Input.GetKey("backspace") && word != "") {
+        
+        if(Input.GetKeyDown("backspace") && word != "") {
+            word = word.Remove(word.Length - 1, 1);
+            cur_word_text.text = word;
+            startTime = Time.time;
+        }
+        if(Input.GetKey("backspace") && ((Time.time - startTime) > 0.5f) && word != "") {
             word = word.Remove(word.Length - 1, 1);
             cur_word_text.text = word;
         }
