@@ -7,9 +7,10 @@ using UnityEngine.SceneManagement;
 
 public class testTutorial : MonoBehaviour
 {
-    public Button b1;
+    public Button play_pause;
+    public Button return_to_menu;
     public TextMeshProUGUI paragraph;
-    private TextMeshProUGUI b1text; 
+    private TextMeshProUGUI play_pause_text; 
     private float shooting_delay; 
     private GameObject projectile_template;
     private GameObject mainCamera;
@@ -23,39 +24,43 @@ public class testTutorial : MonoBehaviour
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
         shooting_delay = 1.5f;  
         projectile_template = (GameObject)Resources.Load("basic slime/Prefab/Slime_01", typeof(GameObject));  // projectile prefab
-        b1text = b1.GetComponentInChildren<TextMeshProUGUI>();
-        b1.onClick.AddListener(begin);
+        play_pause_text = play_pause.GetComponentInChildren<TextMeshProUGUI>();
+        play_pause.onClick.AddListener(begin);
+        return_to_menu.onClick.AddListener(main_menu);
         img = GameObject.Find("Canvas").GetComponent<Image>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    void begin(){
-        if(b1text.text == "Start"){
-            b1text.text = "Stop";
+    void begin() {
+        if(play_pause_text.text == "Start"){
+            play_pause_text.text = "Pause";
             img.enabled = false;
             paragraph.enabled = false;
+            return_to_menu.gameObject.SetActive(false);
+            StartCoroutine("Spawn");
+        } else{
+            play_pause_text.text = "Start";
+            img.enabled = true;
+            paragraph.enabled = true;
+            return_to_menu.gameObject.SetActive(true);
+            StopCoroutine("Spawn");
+            foreach (GameObject slime in GameObject.FindGameObjectsWithTag("Word")) {
+                Destroy(slime.transform.parent.gameObject);
+            }
         }
-        else{
-            SceneManager.LoadScene("startScreen");
-        }
+    }
 
-        StartCoroutine("Spawn");
-
+    void main_menu() {
+        SceneManager.LoadScene("startScreen");
     }
 
     private IEnumerator Spawn()
     {
         while (true)
         {            
-            if (b1text.text =="Stop")
+            if (play_pause_text.text == "Pause")
             {
                 var starting_pos = new Vector3(Random.Range(-5.0f, 5.0f), 0.0f, 5.0f);
-                if (GameObject.FindGameObjectsWithTag("Slime").Length == 0)
+                if (GameObject.FindGameObjectsWithTag("Slime").Length < 3)
                 {
                     GameObject new_object = Instantiate(projectile_template, starting_pos, Quaternion.identity);
                     GameObject obj = new GameObject("Text");
