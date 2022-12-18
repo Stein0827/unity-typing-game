@@ -7,8 +7,8 @@ using TMPro;
 public class Keyboard : MonoBehaviour
 {
     public Slime_Animator animator_script;
-    private string word;
     GameObject[] slime_array;
+    GameObject[] slime_arr;
     Image Q, W, E, R, T, Y, U, I, O, P;
     Image A, S, D, F, G, H, J, K, L;
     Image Z, X, C, V, B, N, M, Comma, Period;
@@ -29,7 +29,6 @@ public class Keyboard : MonoBehaviour
         pink = new Color(1f, 0f, 0.5f, 0.2f);
         orange = new Color(1f, 0.5f, 0f, 0.2f);
         red = new Color(1f, 0f, 0f, 0.5f);
-        // animator_script = GameObject.FindGameObjectWithTag("");
         // first row
         Q = GameObject.Find("Q").GetComponent<Image>(); W = GameObject.Find("W").GetComponent<Image>(); E = GameObject.Find("E").GetComponent<Image>();
         R = GameObject.Find("R").GetComponent<Image>(); T = GameObject.Find("T").GetComponent<Image>(); Y = GameObject.Find("Y").GetComponent<Image>();
@@ -101,11 +100,16 @@ public class Keyboard : MonoBehaviour
             cur_word_text.text = word;
         }
         slime_array = GameObject.FindGameObjectsWithTag("Word");
+
         foreach (GameObject slime in slime_array) {
             if(slime.GetComponent<TextMeshPro>().text == word) {
+                Debug.Log(slime.transform.parent.gameObject);
                 word = "";
                 cur_word_text.text = word;
-                Debug.Log(animator_script.name);
+                animator_script = slime.transform.parent.gameObject.GetComponent<Slime_Animator>();
+                Debug.Log(animator_script.getState());
+                animator_script.setState(2);
+
                 // Destroy(slime.transform.parent.gameObject);
             }
         }

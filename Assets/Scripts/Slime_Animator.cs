@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class Slime_Animator : MonoBehaviour {
     
-    public int state;
+    private int state;
     private Animator animation_controller;
     private float velocity;
     private float walking_velocity;
@@ -25,9 +25,11 @@ public class Slime_Animator : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        // Debug.Log(state);
         Vector3 v = player_cam.transform.position - transform.position;
         Vector3 d = v / v.magnitude;
         transform.position += new Vector3(d.x, 0f, d.z) * velocity * Time.deltaTime;
+        animation_controller.SetInteger("state", state);
 
         if (transform.position.y > 1f) {
             transform.position = new Vector3(transform.position.x, 1f, transform.position.z);
@@ -52,15 +54,26 @@ public class Slime_Animator : MonoBehaviour {
             // Destroy(gameObject);
         }
         else {
+            animation_controller.SetInteger("state", state);
             if (animation_controller.GetInteger("state") == 2) {
                 animation_controller.SetInteger("state", state);
-                velocity = 0f;
-                Debug.Log(animation_controller.GetCurrentAnimatorClipInfo(0)[0].clip.name == "Attack");
+                if (animation_controller.GetCurrentAnimatorClipInfo(0)[0].clip.name == "Attack")
+                {
+                    velocity = 0f;
+                    if (animation_state.normalizedTime >= 0.35f)
+                    {
+                        Destroy(gameObject);
+                    }
+                }
             }
 
             state = 0;
             animation_controller.SetInteger("state", state);
         }
+    }
+
+    public void setState(int stateNum) {
+        state = stateNum;
     }
 
     public int getState() {
