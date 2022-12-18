@@ -102,19 +102,19 @@ public class level1 : MonoBehaviour
                 break;
             case 2:
                 GameObject crate = Instantiate(crate_prefab, new Vector3(0, 0, 0), Quaternion.identity);
-                crate.transform.position = new Vector3(x, 0.0f, y);
+                crate.transform.position = new Vector3(x, 0.4571295f, y);
                 crate.transform.Rotate(0f, Random.Range(0.0f, 360.0f), 0f);
                 break;
             case 3:
                 GameObject rock = Instantiate(rock_prefab, new Vector3(0, 0, 0), Quaternion.identity);
-                rock.transform.position = new Vector3(x, 0.0f, y);
+                rock.transform.position = new Vector3(x, 0.5f, y);
                 rock.transform.Rotate(0f, Random.Range(0.0f, 360.0f), 0f);
                 break;
             case 4:
                 GameObject pot = Instantiate(pot_prefab, new Vector3(0, 0, 0), Quaternion.identity);
                 pot.transform.position = new Vector3(x, 0.0f, y);
                 pot.transform.Rotate(0f, Random.Range(0.0f, 360.0f), 0f);
-                GameObject particles = Instantiate(pot_particle_prefab, new Vector3(0, 0, 0), Quaternion.identity);
+                GameObject particle = Instantiate(pot_particle_prefab, new Vector3(0, 0, 0), Quaternion.identity);
                 particle.transform.position = new Vector3(x, 0.6652534f, y);
                 break;
         }
@@ -123,11 +123,12 @@ public class level1 : MonoBehaviour
     void tableAddons(float x, float z){
         if(Random.value > 0.5f){
             GameObject table = Instantiate(table_prefab, new Vector3(0, 0, 0), Quaternion.identity);
-            table.transform.position = new Vector3(x, 0.0f, y);
+            table.transform.position = new Vector3(x, 0.0f, z);
         }
         else{
             GameObject table = Instantiate(table_prefab, new Vector3(0, 0, 0), Quaternion.identity);
-            table.transform.position = new Vector3(x, 0.0f, y);
+            table.transform.position = new Vector3(x, 0.0f, z);
+            table.transform.Rotate(0f, 90f, 0f);
         }
 
 
