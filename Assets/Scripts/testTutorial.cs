@@ -14,7 +14,6 @@ public class testTutorial : MonoBehaviour
     private float shooting_delay; 
     private GameObject projectile_template;
     private GameObject mainCamera;
-    public int health;
     // private TextMeshPro te
     
     private Image img;
