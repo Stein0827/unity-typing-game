@@ -15,6 +15,8 @@ public class testTutorial : MonoBehaviour
     private GameObject projectile_template;
     private GameObject mainCamera;
     public int health;
+    public Animator slime_animated;
+    
     // private TextMeshPro te
     
     private Image img;

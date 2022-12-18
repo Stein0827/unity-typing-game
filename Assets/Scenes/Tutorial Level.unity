@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.010486943, g: 0.05298245, b: 0.15319028, a: 1}
+  m_IndirectSpecularColor: {r: 0.010482521, g: 0.0529591, b: 0.1531336, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -796,6 +796,7 @@ MonoBehaviour:
   return_to_menu: {fileID: 596310130}
   paragraph: {fileID: 233009349}
   health: 0
+  slime_animated: {fileID: 0}
 --- !u!222 &711905862
 CanvasRenderer:
   m_ObjectHideFlags: 0

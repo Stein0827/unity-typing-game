@@ -7,6 +7,7 @@ using TMPro;
 public class Keyboard : MonoBehaviour
 {
     public string word;
+    public Slime_Animator animator_script;
     GameObject[] slime_array;
     Image Q, W, E, R, T, Y, U, I, O, P;
     Image A, S, D, F, G, H, J, K, L;
@@ -28,6 +29,7 @@ public class Keyboard : MonoBehaviour
         pink = new Color(1f, 0f, 0.5f, 0.2f);
         orange = new Color(1f, 0.5f, 0f, 0.2f);
         red = new Color(1f, 0f, 0f, 0.5f);
+        // animator_script = GameObject.FindGameObjectWithTag("");
         // first row
         Q = GameObject.Find("Q").GetComponent<Image>(); W = GameObject.Find("W").GetComponent<Image>(); E = GameObject.Find("E").GetComponent<Image>();
         R = GameObject.Find("R").GetComponent<Image>(); T = GameObject.Find("T").GetComponent<Image>(); Y = GameObject.Find("Y").GetComponent<Image>();
@@ -103,7 +105,8 @@ public class Keyboard : MonoBehaviour
             if(slime.GetComponent<TextMeshPro>().text == word) {
                 word = "";
                 cur_word_text.text = word;
-                Destroy(slime.transform.parent.gameObject);
+                Debug.Log(animator_script.name);
+                // Destroy(slime.transform.parent.gameObject);
             }
         }
     }
