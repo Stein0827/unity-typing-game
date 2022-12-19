@@ -49,7 +49,7 @@ public class startGame : MonoBehaviour
         }
         PlayerPrefs.DeleteAll();
         PlayerPrefs.SetString("nick", nname);
-        SceneManager.LoadScene("Tutorial Level");
+        SceneManager.LoadScene("infiniteLevel");
     }
     void go_hof(){
         if(nickname.text == ""){
@@ -71,6 +71,6 @@ public class startGame : MonoBehaviour
         }
         PlayerPrefs.DeleteAll();
         PlayerPrefs.SetString("nick", nname);
-        SceneManager.LoadScene("Tutorial Level");
+        SceneManager.LoadScene("normalLevel");
     }
 }

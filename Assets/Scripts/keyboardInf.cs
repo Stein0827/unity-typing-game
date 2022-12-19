@@ -4,10 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class Keyboard : MonoBehaviour
+public class keyboardInf : MonoBehaviour
 {
     private string word;
-    public Slime_Animator animator_script;
     GameObject[] slime_array;
     Image Q, W, E, R, T, Y, U, I, O, P;
     Image A, S, D, F, G, H, J, K, L;
@@ -17,9 +16,12 @@ public class Keyboard : MonoBehaviour
     Image RF1, RF2, RF3, RF4, RF5;
     Color red, blue, green, orange, purple, pink;
     TextMeshProUGUI cur_word_text;
+    float startTime;
+    static public int kill_count;
     // Start is called before the first frame update
     void Start()
     {
+        startTime = 0f;
         word = "";
         cur_word_text = GameObject.Find("Current Word").GetComponent<TMPro.TextMeshProUGUI>();
         slime_array = GameObject.FindGameObjectsWithTag("Word");
@@ -29,6 +31,7 @@ public class Keyboard : MonoBehaviour
         pink = new Color(1f, 0f, 0.5f, 0.2f);
         orange = new Color(1f, 0.5f, 0f, 0.2f);
         red = new Color(1f, 0f, 0f, 0.5f);
+        kill_count = 0;
         // first row
         Q = GameObject.Find("Q").GetComponent<Image>(); W = GameObject.Find("W").GetComponent<Image>(); E = GameObject.Find("E").GetComponent<Image>();
         R = GameObject.Find("R").GetComponent<Image>(); T = GameObject.Find("T").GetComponent<Image>(); Y = GameObject.Find("Y").GetComponent<Image>();
@@ -88,10 +91,16 @@ public class Keyboard : MonoBehaviour
         for(int i = 97; i<123; i++) {
             if(Input.GetKeyDown(((char)i).ToString())) {
                 word += (char)i;
+                word = word.ToUpper();
                 cur_word_text.text = word;
             }
         }
-        if(Input.GetKey("backspace") && word != "") {
+        if(Input.GetKeyDown("backspace") && word != "") {
+            word = word.Remove(word.Length - 1, 1);
+            cur_word_text.text = word;
+            startTime = Time.time;
+        }
+        if(Input.GetKey("backspace") && ((Time.time - startTime) > 0.5f) && word != "") {
             word = word.Remove(word.Length - 1, 1);
             cur_word_text.text = word;
         }
@@ -100,17 +109,13 @@ public class Keyboard : MonoBehaviour
             cur_word_text.text = word;
         }
         slime_array = GameObject.FindGameObjectsWithTag("Word");
-
         foreach (GameObject slime in slime_array) {
             if(slime.GetComponent<TextMeshPro>().text == word) {
-                Debug.Log(slime.transform.parent.gameObject);
+                infiniteLvl.score += word.Length;
                 word = "";
                 cur_word_text.text = word;
-                animator_script = slime.transform.parent.gameObject.GetComponent<Slime_Animator>();
-                Debug.Log(animator_script.getState());
-                animator_script.setState(2);
-
-                // Destroy(slime.transform.parent.gameObject);
+                Destroy(slime.transform.parent.gameObject);
+                kill_count += 1;
             }
         }
     }

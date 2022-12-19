@@ -25,7 +25,7 @@ public class testTutorial : MonoBehaviour
     {
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
         shooting_delay = 1.5f;  
-        projectile_template = (GameObject)Resources.Load("basic slime/Prefab/Slime_01", typeof(GameObject));  // projectile prefab
+        projectile_template = (GameObject)Resources.Load("basic slime/Prefabs/Slime_01", typeof(GameObject));  // projectile prefab
         play_pause_text = play_pause.GetComponentInChildren<TextMeshProUGUI>();
         play_pause.onClick.AddListener(begin);
         return_to_menu.onClick.AddListener(main_menu);

@@ -48,6 +48,7 @@ public class Slime_Animator : MonoBehaviour {
                 Debug.Log("in if statement");
                 if (animation_state.normalizedTime >= 0.35f)
                 {
+                    infiniteLvl.health -= 20;
                     Destroy(gameObject);
                 }
             }
