@@ -15,7 +15,11 @@ public class Slime_Animator : MonoBehaviour {
     {
         animation_controller = gameObject.AddComponent<Animator>();
         animation_controller.runtimeAnimatorController = Resources.Load("Slime") as RuntimeAnimatorController;
-        velocity = keyboardInf.curr_vel;
+        if (keyboardInf.curr_vel == 0) {
+            velocity = 1;
+        } else {
+            velocity = keyboardInf.curr_vel;
+        }
         player_cam = GameObject.Find("Main Camera").GetComponent<Camera>();
         state = 0;
     }

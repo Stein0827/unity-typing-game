@@ -11,9 +11,11 @@ public class canvasL1 : MonoBehaviour
 {
     public Button play_pause;
     public Button return_to_menu;
+    public TextMeshProUGUI paragraph;
+    public TextMeshProUGUI health_gui;
     private TextMeshProUGUI play_pause_text; 
-    private float shooting_delay; 
-    private GameObject projectile_template;
+    private float spawning_delay; 
+    private GameObject slime_template;
     private GameObject mainCamera;
     string path;
     string[] readText;
@@ -22,7 +24,7 @@ public class canvasL1 : MonoBehaviour
     private float room_num;
 
     private float new_camera_z;
-
+    static public int health;
     static public int defeated;
     private GameObject king_slime;
     
@@ -33,8 +35,8 @@ public class canvasL1 : MonoBehaviour
         new_camera_z = 16f;
         defeated = 0;
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
-        shooting_delay = 1.5f;  
-        projectile_template = (GameObject)Resources.Load("basic slime/Prefabs/Slime_01", typeof(GameObject));  // projectile prefab
+        spawning_delay = 1.5f;  
+        slime_template = (GameObject)Resources.Load("basic slime/Prefabs/Slime_01", typeof(GameObject));  // projectile prefab
         king_slime = ((GameObject)Resources.Load("basic slime/Prefabs/Slime_01_King", typeof(GameObject)));
         play_pause_text = play_pause.GetComponentInChildren<TextMeshProUGUI>();
         play_pause.onClick.AddListener(begin);
@@ -42,20 +44,39 @@ public class canvasL1 : MonoBehaviour
         path = @"Assets/Words/american-words.35.txt";
         readText = File.ReadAllLines(path);
         rnd = new Rnd();
+        health = 100;
+    }
+
+    void Update() {
+       if (health == 0) {
+            Time.timeScale = 0;
+            paragraph.enabled = true;
+            paragraph.text = "You have died.";
+            paragraph.color = new Color(1f, 0f, 0f);
+            play_pause_text.text = "Try Again";
+            return_to_menu.gameObject.SetActive(true);
+            StopCoroutine("Spawn");
+        }
+        health_gui.text = "HP: " + health.ToString();
+        if (GameObject.FindGameObjectsWithTag("Slime").Length == 0 && defeated >= room_num*2+1 && mainCamera.transform.position.z <= new_camera_z){ 
+            // mainCamera.transform.localPosition = Vector3.MoveTowards (mainCamera.transform.localPosition, new Vector3(0f, 0f, Mathf.Floor((mainCamera.transform.position.z + 15)/15)), Time.deltaTime * 10);
+            mainCamera.transform.position += new Vector3(0f,0f,1f) * Time.fixedDeltaTime;
+        }
     }
 
     void begin() {
         if(play_pause_text.text == "Start"){
             play_pause_text.text = "Pause";
+            paragraph.enabled = false;
             return_to_menu.gameObject.SetActive(false);
             StartCoroutine("Spawn");
+            Time.timeScale = 1;
         } else{
             play_pause_text.text = "Start";
+            paragraph.enabled = true;
             return_to_menu.gameObject.SetActive(true);
             StopCoroutine("Spawn");
-            foreach (GameObject slime in GameObject.FindGameObjectsWithTag("Word")) {
-                Destroy(slime.transform.parent.gameObject);
-            }
+            Time.timeScale = 0;
         }
     }
 
@@ -69,36 +90,38 @@ public class canvasL1 : MonoBehaviour
         {            
             if (play_pause_text.text == "Pause")
             {
-                Debug.Log(defeated);
                 room_num = Mathf.Floor(mainCamera.transform.position.z/15) + 1;
                 var starting_pos = mainCamera.transform.position + new Vector3(Random.Range(-5.0f, 5.0f), -1.88f, 15.0f);
                 if (GameObject.FindGameObjectsWithTag("Slime").Length < 2 && defeated <= room_num*2+1 && mainCamera.transform.position.z < 300f)                
                 {
-                    GameObject new_object = Instantiate(projectile_template, starting_pos, Quaternion.identity);
-                    GameObject obj = new GameObject("Text");
+                    GameObject slime = Instantiate(slime_template, starting_pos, Quaternion.identity);
+                    slime.tag = "Slime";
+                    slime.transform.LookAt(mainCamera.transform);
+                    slime.AddComponent<Slime_Animator>();
+
+                    GameObject txtBox = new GameObject("Text");
+                    txtBox.tag = "Word";
+                    txtBox.transform.position = slime.transform.position;
+                    txtBox.transform.position += new Vector3(0f, 1.5f, 0f);
+                    txtBox.transform.SetParent(slime.transform);
+
                     GameObject pln  = GameObject.CreatePrimitive(PrimitiveType.Plane);
-                    pln.transform.Rotate(90, 0, 0);
-                    pln.transform.localScale = new Vector3(0.3f, 1f, 0.1f);
-                    TextMeshPro t = obj.AddComponent<TextMeshPro>();
-                    t.color = new Color(0f, 0f, 0f);
-                    RectTransform rt = t.GetComponent<RectTransform>();
-                    rt.sizeDelta = new Vector2(5, 2);
+                    pln.transform.Rotate(-90, 0, 0);
+                    pln.transform.localScale = new Vector3(0.6f, 1f, 0.1f);
+                    pln.transform.position = slime.transform.position + new Vector3(0f, 1.5f, 0.1f);
+                    pln.transform.SetParent(txtBox.transform);
+                    
+                    TextMeshPro t = txtBox.AddComponent<TextMeshPro>();
+                    t.color = new Color(0, 0, 0);
                     int r = rnd.Next(readText.Length);
                     while (readText[r].Contains("'")) {
                         r = rnd.Next(readText.Length);
                     }
-                    t.text = readText[r].ToLower();
+                    t.text = readText[r].ToUpper();
                     t.alignment = TextAlignmentOptions.Center;
                     t.fontSize = 5;
-                    obj.transform.position = new_object.transform.position + new Vector3(0f, 1f, 0f);
-                    obj.transform.SetParent(new_object.transform);
-                    pln.transform.position = new_object.transform.position + new Vector3(0f, 1f, -0.1f);
-                    pln.transform.SetParent(new_object.transform);
-                    new_object.tag = "Slime";
-                    obj.tag = "Word";
-                    new_object.transform.LookAt(mainCamera.transform);
-                    obj.transform.Rotate(0, 180, 0);
-                    new_object.AddComponent<Slime_Animator>();
+                    RectTransform rt = t.GetComponent<RectTransform>();
+                    rt.sizeDelta = new Vector2(7, 1);
                 }
 
                 if(mainCamera.transform.position.z >=  new_camera_z){
@@ -131,16 +154,8 @@ public class canvasL1 : MonoBehaviour
                 // }
 
             }
-            yield return new WaitForSeconds(shooting_delay); // next shot will be shot after this delay
+            yield return new WaitForSeconds(spawning_delay);
         }
         
-    }
-
-    void Update(){
-        if (GameObject.FindGameObjectsWithTag("Slime").Length == 0 && defeated >= room_num*2+1 && mainCamera.transform.position.z <= new_camera_z){ 
-            // mainCamera.transform.localPosition = Vector3.MoveTowards (mainCamera.transform.localPosition, new Vector3(0f, 0f, Mathf.Floor((mainCamera.transform.position.z + 15)/15)), Time.deltaTime * 10);
-            // Debug.
-            mainCamera.transform.position += new Vector3(0f,0f,1f) * Time.fixedDeltaTime;
-        }
     }
 }

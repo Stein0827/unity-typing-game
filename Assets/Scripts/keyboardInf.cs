@@ -23,6 +23,7 @@ public class keyboardInf : MonoBehaviour
     static public int kill_count;
     static public int use_heal;
     static public int use_time;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -147,20 +148,6 @@ public class keyboardInf : MonoBehaviour
             if (infiniteLvl.time > 0) {
             use_time = 1;
             infiniteLvl.time -= 1;
-            }
-        }
-        foreach (GameObject slime in slime_array) {
-            if(slime.GetComponent<TextMeshPro>().text == word) {
-                if (use_heal == 2) {
-                    infiniteLvl.health += word.Length;
-                } else {
-                    infiniteLvl.score += word.Length;
-                }
-                word = "";
-                cur_word_text.text = word;
-                animator_script = slime.transform.parent.gameObject.GetComponent<Slime_Animator>();
-                animator_script.setState(2);
-                kill_count += 1;
             }
         }
         if (infiniteLvl.score >= velocity_control) {
