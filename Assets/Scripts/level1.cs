@@ -29,7 +29,7 @@ public class level1 : MonoBehaviour
     }
 
     void generateWalls(){
-        for (int i = 1; i<69; i++){
+        for (int i = 1; i<33; i++){
             GameObject r_wall = Instantiate(wall_prefab, new Vector3(0, 0, 0), Quaternion.identity);
             r_wall.transform.position = new Vector3(10.0f, 0.0f, 5f*i - 17.5f);
             r_wall.transform.Rotate(0f, 270f, 0f);
@@ -44,12 +44,12 @@ public class level1 : MonoBehaviour
         }
         for (int i=1; i < 5; i++) {
             GameObject end_wall = Instantiate(wall_prefab, new Vector3(0, 0, 0), Quaternion.identity);
-            end_wall.transform.position = new Vector3(12.5f - 5f*i, 0.0f, 325f);
+            end_wall.transform.position = new Vector3(12.5f - 5f*i, 0.0f, 145f);
             end_wall.transform.Rotate(0f, 180f, 0f);
             end_wall.transform.localScale = new Vector3(1.25f, 1f, 1f);
         }
 
-        for (int i=15; i < 315; i = i + 15){
+        for (int i=15; i < 135; i = i + 15){
             for (int j = 0; j < 5; j++){
                 GameObject mid_wall = Instantiate(wall_prefab, new Vector3(0, 0, 0), Quaternion.identity);
                 mid_wall.transform.position = new Vector3(-8f + 4f*j, 0.0f, i);
@@ -84,7 +84,7 @@ public class level1 : MonoBehaviour
     }
 
     void generateFloor(){
-        for (int i=0; i < 300; i = i + 15){
+        for (int i=0; i < 120; i = i + 15){
             int which = Random.Range(1, 5);
             float x = Random.Range(4.0f, 7.0f);
             float y = Random.Range(6.0f, 8.0f);
@@ -255,9 +255,9 @@ public class level1 : MonoBehaviour
     void finalRoom(){
         for (int i = 0; i < 3; i++){
             GameObject l_column = Instantiate(light_column_prefab, new Vector3(0, 0, 0), Quaternion.identity);
-            l_column.transform.position = new Vector3(5f, 0f, 305f + 7.5f*i);
+            l_column.transform.position = new Vector3(5f, 0f, 125f + 7.5f*i);
             GameObject r_column = Instantiate(light_column_prefab, new Vector3(0, 0, 0), Quaternion.identity);
-            r_column.transform.position = new Vector3(-5f, 0f, 305f + 7.5f*i);
+            r_column.transform.position = new Vector3(-5f, 0f, 125f + 7.5f*i);
             
         }
     }

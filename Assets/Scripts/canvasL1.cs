@@ -19,6 +19,7 @@ public class canvasL1 : MonoBehaviour
     private GameObject mainCamera;
     string path;
     string[] readText;
+    string[] hardWords;
     static Rnd rnd;
     public GameObject column_prefab;
     private float room_num;
@@ -27,11 +28,13 @@ public class canvasL1 : MonoBehaviour
     static public int health;
     static public int defeated;
     private GameObject king_slime;
+    private bool finalRoom;
     
     // Start is called before the first frame update
     void Start()
     {
         // room_num = 1;
+        finalRoom = false;
         new_camera_z = 16f;
         defeated = 0;
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
@@ -43,6 +46,7 @@ public class canvasL1 : MonoBehaviour
         return_to_menu.onClick.AddListener(main_menu);
         path = @"Assets/Words/american-words.35.txt";
         readText = File.ReadAllLines(path);
+        hardWords = File.ReadAllLines(@"Assets/Words/american-words.95.txt");
         rnd = new Rnd();
         health = 100;
     }
@@ -61,6 +65,14 @@ public class canvasL1 : MonoBehaviour
         if (GameObject.FindGameObjectsWithTag("Slime").Length == 0 && defeated >= room_num*2+1 && mainCamera.transform.position.z <= new_camera_z){ 
             // mainCamera.transform.localPosition = Vector3.MoveTowards (mainCamera.transform.localPosition, new Vector3(0f, 0f, Mathf.Floor((mainCamera.transform.position.z + 15)/15)), Time.deltaTime * 10);
             mainCamera.transform.position += new Vector3(0f,0f,1f) * Time.fixedDeltaTime;
+        }
+        if (KingSlime_Animator.won){
+            Time.timeScale = 0;
+            paragraph.enabled = true;
+            paragraph.text = "You have Won.";
+            paragraph.color = new Color(0f, 1f, 0f);
+            // play_pause_text.text = "Try Again";
+            return_to_menu.gameObject.SetActive(true);
         }
     }
 
@@ -91,11 +103,11 @@ public class canvasL1 : MonoBehaviour
     {
         while (true)
         {            
-            if (play_pause_text.text == "Pause")
+            if (play_pause_text.text == "Pause" && !finalRoom)
             {
                 room_num = Mathf.Floor(mainCamera.transform.position.z/15) + 1;
-                var starting_pos = mainCamera.transform.position + new Vector3(Random.Range(-5.0f, 5.0f), -1.88f, 15.0f);
-                if (GameObject.FindGameObjectsWithTag("Slime").Length < 2 && defeated <= room_num*2+1 && mainCamera.transform.position.z < 300f)                
+                var starting_pos = mainCamera.transform.position + new Vector3(Random.Range(-3.0f, 3.0f), -1.88f, 13.0f);
+                if (GameObject.FindGameObjectsWithTag("Slime").Length < 2 && defeated <= room_num*2+1 && mainCamera.transform.position.z < 120f)                
                 {
                     GameObject slime = Instantiate(slime_template, starting_pos, Quaternion.identity);
                     slime.tag = "Slime";
@@ -148,8 +160,37 @@ public class canvasL1 : MonoBehaviour
                     }
                 }
 
-                if(mainCamera.transform.position.z == 300f){
+                if(Mathf.Floor(mainCamera.transform.position.z) == 120){
+                    finalRoom = true;
+                    GameObject big_slime = Instantiate(king_slime, new Vector3(0f, 0f, 140f), Quaternion.identity);
+                    big_slime.tag = "KingSlime";
+                    big_slime.transform.localScale = new Vector3(3f, 3f, 3f);
+                    big_slime.transform.LookAt(mainCamera.transform);
+                    big_slime.AddComponent<KingSlime_Animator>();
 
+                    GameObject txtBox = new GameObject("Text");
+                    txtBox.tag = "Word";
+                    txtBox.transform.position = big_slime.transform.position;
+                    txtBox.transform.position += new Vector3(0f, 4f, 0f);
+                    txtBox.transform.SetParent(big_slime.transform);
+
+                    GameObject pln  = GameObject.CreatePrimitive(PrimitiveType.Plane);
+                    pln.transform.Rotate(-90, 0, 0);
+                    pln.transform.localScale = new Vector3(0.6f, 1f, 0.1f);
+                    pln.transform.position = big_slime.transform.position + new Vector3(0f, 4f, 0.1f);
+                    pln.transform.SetParent(txtBox.transform);
+                    
+                    TextMeshPro t = txtBox.AddComponent<TextMeshPro>();
+                    t.color = new Color(0, 0, 0);
+                    int r = rnd.Next(hardWords.Length);
+                    while (hardWords[r].Contains("'")) {
+                        r = rnd.Next(hardWords.Length);
+                    }
+                    t.text = hardWords[r].ToUpper();
+                    t.alignment = TextAlignmentOptions.Center;
+                    t.fontSize = 5;
+                    RectTransform rt = t.GetComponent<RectTransform>();
+                    rt.sizeDelta = new Vector2(7, 1);
                 }
 
                 // if (GameObject.FindGameObjectsWithTag("Slime").Length == 0){
