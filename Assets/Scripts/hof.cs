@@ -80,9 +80,7 @@ public class hof : MonoBehaviour
         {
             while ((curr_line = sr.ReadLine()) != null) {
                 string[] tokens = curr_line.Split("\t");
-                Debug.Log(tokens);
                 int curr_line_score = System.Int32.Parse(tokens[1]);
-                Debug.Log(curr_line_score);
                 if (!scores.ContainsKey(tokens[0])) {
                     scores.Add(tokens[0], curr_line_score);
                 }
