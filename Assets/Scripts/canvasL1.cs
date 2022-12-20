@@ -94,13 +94,17 @@ public class canvasL1 : MonoBehaviour
             if (play_pause_text.text == "Pause")
             {
                 room_num = Mathf.Floor(mainCamera.transform.position.z/15) + 1;
-                var starting_pos = mainCamera.transform.position + new Vector3(Random.Range(-5.0f, 5.0f), -1.88f, 15.0f);
+                var starting_pos = mainCamera.transform.position + new Vector3(Random.Range(-4f, 4f), -1.88f, 15.0f);
                 if (GameObject.FindGameObjectsWithTag("Slime").Length < 2 && defeated <= room_num*2+1 && mainCamera.transform.position.z < 300f)                
                 {
                     GameObject slime = Instantiate(slime_template, starting_pos, Quaternion.identity);
                     slime.tag = "Slime";
                     slime.transform.LookAt(mainCamera.transform);
                     slime.AddComponent<Slime_Animator>();
+                    slime.AddComponent<Rigidbody>();
+                    slime.GetComponent<Rigidbody>().useGravity = false;
+                    slime.GetComponent<Rigidbody>().isKinematic = true;
+                    slime.GetComponent<Rigidbody>().detectCollisions = true;
 
                     GameObject txtBox = new GameObject("Text");
                     txtBox.tag = "Word";
