@@ -1,0 +1,20 @@
+fileFormatVersion: 2
+guid: bef94e50ceab9434f8a9a6c3b74ce255
+labels:
+- Grass
+- classic
+- cliff
+- columns
+- grass
+- materials
+- mud
+- rock
+- roman
+- ruins
+- stone
+timeCreated: 1501518578
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: materials
+  assetBundleVariant: 

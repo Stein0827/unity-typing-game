@@ -1,0 +1,26 @@
+fileFormatVersion: 2
+guid: 8ff991edec1d720438bacd2896e57115
+labels:
+- architecture
+- classic
+- cliff
+- columns
+- environments
+- exterior
+- gameasset
+- gameready
+- grass
+- historical
+- lowpolygameasset
+- mud
+- pillar
+- rock
+- roman
+- ruins
+- stone
+timeCreated: 1501404553
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: prefabs
+  assetBundleVariant: 

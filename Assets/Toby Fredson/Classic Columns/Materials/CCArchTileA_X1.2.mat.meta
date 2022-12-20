@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 2271df862ac854845b4f219257f2aff6
+labels:
+- classic
+- columns
+- materials
+- roman
+- ruins
+- stone
+timeCreated: 1502227327
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: materials
+  assetBundleVariant: 

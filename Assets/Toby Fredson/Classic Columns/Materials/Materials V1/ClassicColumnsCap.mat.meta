@@ -1,0 +1,35 @@
+fileFormatVersion: 2
+guid: 73652006a142ccf4689afdbd46d3ffec
+labels:
+- gameready
+- gameasset
+- lowpolygameasset
+- unity5
+- blender3d
+- environments
+- architecture
+- interior
+- exterior
+- building
+- column
+- pillar
+- ancientruins
+- hqtextures
+- stone
+- hq
+- historical
+- classical
+- neoclassical
+- scenes
+- Textures
+- Diffuse
+- normal
+- AO
+- specular
+- Materials
+timeCreated: 1457636808
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: materials
+  assetBundleVariant: 

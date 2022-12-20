@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: d57fa24d86de2d74b910ebcf095620e8
+labels:
+- building
+- columns
+- environments
+- exterior
+- roman
+- scenes
+- stone
+timeCreated: 1501835727
+licenseType: Store
+DefaultImporter:
+  userData: 
+  assetBundleName: scenes
+  assetBundleVariant: 
