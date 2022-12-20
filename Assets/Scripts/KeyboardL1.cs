@@ -7,8 +7,6 @@ using TMPro;
 public class KeyboardL1 : MonoBehaviour
 {
     private string word;
-    public Slime_Animator animator_script;
-
     GameObject[] slime_array;
     Image Q, W, E, R, T, Y, U, I, O, P;
     Image A, S, D, F, G, H, J, K, L;
@@ -111,10 +109,9 @@ public class KeyboardL1 : MonoBehaviour
         slime_array = GameObject.FindGameObjectsWithTag("Word");
         foreach (GameObject slime in slime_array) {
             if(slime.GetComponent<TextMeshPro>().text == word) {
-                animator_script = slime.transform.parent.gameObject.GetComponent<Slime_Animator>();
                 word = "";
                 cur_word_text.text = word;
-                animator_script.setState(2);
+                Destroy(slime.transform.parent.gameObject);
                 canvasL1.defeated++;
             }
         }

@@ -137,24 +137,20 @@ public class level1 : MonoBehaviour
             if (Random.value < 0.33f){
                 GameObject chair = Instantiate(chair_prefab, new Vector3(0, 0, 0), Quaternion.identity);
                 chair.transform.position = new Vector3(x + 0.5f, 0f, z - 1f);
-                table.AddComponent<Collider>();
             }
             if (Random.value < 0.33f){
                 GameObject chair = Instantiate(chair_prefab, new Vector3(0, 0, 0), Quaternion.identity);
                 chair.transform.position = new Vector3(x - 0.5f, 0f, z - 1f);
-                chair.AddComponent<Collider>();
             }
             if (Random.value < 0.33f){
                 GameObject chair = Instantiate(chair_prefab, new Vector3(0, 0, 0), Quaternion.identity);
                 chair.transform.position = new Vector3(x - 0.5f, 0f, z + 1f);
                 chair.transform.Rotate(0f, 180f, 0f);
-                chair.AddComponent<Collider>();
             }
             if (Random.value < 0.33f){
                 GameObject chair = Instantiate(chair_prefab, new Vector3(0, 0, 0), Quaternion.identity);
                 chair.transform.position = new Vector3(x - 0.5f, 0f, z + 1f);
                 chair.transform.Rotate(0f, 180f, 0f);
-                chair.AddComponent<Collider>();
             }
 
             int obj1 = Random.Range(1,4);
@@ -197,7 +193,6 @@ public class level1 : MonoBehaviour
             GameObject table = Instantiate(table_prefab, new Vector3(0, 0, 0), Quaternion.identity);
             table.transform.position = new Vector3(x, 0.0f, z);
             table.transform.Rotate(0f, 90f, 0f);
-            table.AddComponent<Collider>();
             if (Random.value < 0.33f){
                 GameObject chair = Instantiate(chair_prefab, new Vector3(0, 0, 0), Quaternion.identity);
                 chair.transform.position = new Vector3(x - 1f, 0f, z + 0.5f);
@@ -263,6 +258,7 @@ public class level1 : MonoBehaviour
             l_column.transform.position = new Vector3(5f, 0f, 305f + 7.5f*i);
             GameObject r_column = Instantiate(light_column_prefab, new Vector3(0, 0, 0), Quaternion.identity);
             r_column.transform.position = new Vector3(-5f, 0f, 305f + 7.5f*i);
+            
         }
     }
 

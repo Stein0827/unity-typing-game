@@ -11,35 +11,43 @@ public class testTutorial : MonoBehaviour
     public Button return_to_menu;
     public TextMeshProUGUI paragraph;
     private TextMeshProUGUI play_pause_text; 
-    private float spawning_delay; 
-    private GameObject slime_template;
+    private float shooting_delay; 
+    private GameObject projectile_template;
     private GameObject mainCamera;
-    private Animator slime_animated;
-
+    public int health;
+    public Animator slime_animated;
+    
+    // private TextMeshPro te
+    
+    private Image img;
     // Start is called before the first frame update
     void Start()
     {
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
-        spawning_delay = 1.5f;  
-        slime_template = (GameObject)Resources.Load("basic slime/Prefabs/Slime_01", typeof(GameObject));  // projectile prefab
+        shooting_delay = 1.5f;  
+        projectile_template = (GameObject)Resources.Load("basic slime/Prefabs/Slime_01", typeof(GameObject));  // projectile prefab
         play_pause_text = play_pause.GetComponentInChildren<TextMeshProUGUI>();
         play_pause.onClick.AddListener(begin);
         return_to_menu.onClick.AddListener(main_menu);
+        img = GameObject.Find("Canvas").GetComponent<Image>();
     }
 
     void begin() {
         if(play_pause_text.text == "Start"){
             play_pause_text.text = "Pause";
+            img.enabled = false;
             paragraph.enabled = false;
             return_to_menu.gameObject.SetActive(false);
             StartCoroutine("Spawn");
-            Time.timeScale = 1;
         } else{
             play_pause_text.text = "Start";
+            img.enabled = true;
             paragraph.enabled = true;
             return_to_menu.gameObject.SetActive(true);
             StopCoroutine("Spawn");
-            Time.timeScale = 0;
+            foreach (GameObject slime in GameObject.FindGameObjectsWithTag("Word")) {
+                Destroy(slime.transform.parent.gameObject);
+            }
         }
     }
 
@@ -53,36 +61,29 @@ public class testTutorial : MonoBehaviour
         {            
             if (play_pause_text.text == "Pause")
             {
-                var starting_pos = new Vector3(Random.Range(-5.0f, 5.0f), 0.0f, 4.0f);
+                var starting_pos = new Vector3(Random.Range(-5.0f, 5.0f), 0.0f, 5.0f);
                 if (GameObject.FindGameObjectsWithTag("Slime").Length < 3)
                 {
-                    GameObject slime = Instantiate(slime_template, starting_pos, Quaternion.identity);
-                    slime.tag = "Slime";
-                    slime.transform.LookAt(mainCamera.transform);
-                    slime.AddComponent<Slime_Animator>();
-
-                    GameObject pln  = GameObject.CreatePrimitive(PrimitiveType.Plane);
-                    pln.transform.Rotate(-90, 0, 0);
-                    pln.transform.localScale = new Vector3(0.1f, 1f, 0.1f);
-                    pln.transform.position = slime.transform.position + new Vector3(0f, 1.5f, 0.1f);
-                    pln.transform.SetParent(slime.transform);
-
-                    GameObject txtBox = new GameObject("Text");
-                    txtBox.tag = "Word";
-                    txtBox.transform.position = slime.transform.position;
-                    txtBox.transform.position += new Vector3(0f, 1.5f, 0f);
-                    txtBox.transform.SetParent(slime.transform);
-                    
-                    TextMeshPro t = txtBox.AddComponent<TextMeshPro>();
+                    GameObject new_object = Instantiate(projectile_template, starting_pos, Quaternion.identity);
+                    GameObject obj = new GameObject("Text");
+                    TextMeshPro t = obj.AddComponent<TextMeshPro>();
                     t.color = new Color(0, 0, 0);
-                    t.text = ((char)(int)Random.Range(97f, 123f)).ToString().ToUpper();
-                    t.alignment = TextAlignmentOptions.Center;
-                    t.fontSize = 5;
                     RectTransform rt = t.GetComponent<RectTransform>();
-                    rt.sizeDelta = new Vector2(5, 1);
+                    rt.sizeDelta = new Vector2(5, 2);                
+                    t.text = ((char)(int)Random.Range(97f, 123f)).ToString();
+                    t.alignment = TextAlignmentOptions.Center;
+                    t.fontSize = 3 ;
+                    obj.transform.position = new_object.transform.position;
+                    obj.transform.position += new Vector3(0f, 1f, 0f);
+                    obj.transform.SetParent(new_object.transform);
+                    new_object.tag = "Slime";
+                    obj.tag = "Word";
+                    new_object.transform.LookAt(mainCamera.transform);
+                    obj.transform.Rotate(0f, 180f, 0f);
+                    new_object.AddComponent<Slime_Animator>();
                 }
             }
-            yield return new WaitForSeconds(spawning_delay);
+            yield return new WaitForSeconds(shooting_delay); // next shot will be shot after this delay
         }
     }
 }

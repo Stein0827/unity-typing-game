@@ -7,7 +7,6 @@ using TMPro;
 public class keyboardInf : MonoBehaviour
 {
     private string word;
-    public Slime_Animator animator_script;
     GameObject[] slime_array;
     Image Q, W, E, R, T, Y, U, I, O, P;
     Image A, S, D, F, G, H, J, K, L;
@@ -123,9 +122,7 @@ public class keyboardInf : MonoBehaviour
                 }
                 word = "";
                 cur_word_text.text = word;
-                animator_script = slime.transform.parent.gameObject.GetComponent<Slime_Animator>();
-                animator_script.setState(2);
-
+                Destroy(slime.transform.parent.gameObject);
                 kill_count += 1;
             }
         }
@@ -145,7 +142,5 @@ public class keyboardInf : MonoBehaviour
             infiniteLvl.time -= 1;
             }
         }
-        if (infiniteLvl.score % 300 == 0 && infiniteLvl.score != 0)
-            Slime_Animator.extra_velocity += infiniteLvl.score / 100f;
     }
 }

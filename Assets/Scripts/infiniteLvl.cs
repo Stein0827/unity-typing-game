@@ -215,7 +215,7 @@ public class infiniteLvl : MonoBehaviour
                     t.alignment = TextAlignmentOptions.Center;
                     t.fontSize = 5;
                     RectTransform rt = t.GetComponent<RectTransform>();
-                    rt.sizeDelta = new Vector2(7, 1);
+                    rt.sizeDelta = new Vector2(7, 1);       
                 }
             }
             yield return new WaitForSeconds(spawning_delay);
