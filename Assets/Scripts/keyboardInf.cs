@@ -9,7 +9,7 @@ public class keyboardInf : MonoBehaviour
     private string word;
     static public float curr_vel;
     private float velocity_control;
-    public Slime_Animator animator_script;
+    private Slime_Animator animator_script;
     GameObject[] slime_array;
     Image Q, W, E, R, T, Y, U, I, O, P;
     Image A, S, D, F, G, H, J, K, L;
