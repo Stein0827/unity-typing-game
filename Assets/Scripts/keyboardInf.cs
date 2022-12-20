@@ -23,6 +23,7 @@ public class keyboardInf : MonoBehaviour
     static public int kill_count;
     static public int use_heal;
     static public int use_time;
+    private AudioSource source;
 
     // Start is called before the first frame update
     void Start()
@@ -42,6 +43,7 @@ public class keyboardInf : MonoBehaviour
         kill_count = 0;
         use_heal = 0;
         use_time = 0;
+        source = GetComponent<AudioSource>();
         // first row
         Q = GameObject.Find("Q").GetComponent<Image>(); W = GameObject.Find("W").GetComponent<Image>(); E = GameObject.Find("E").GetComponent<Image>();
         R = GameObject.Find("R").GetComponent<Image>(); T = GameObject.Find("T").GetComponent<Image>(); Y = GameObject.Find("Y").GetComponent<Image>();
@@ -100,12 +102,14 @@ public class keyboardInf : MonoBehaviour
 
         for(int i = 97; i<123; i++) {
             if(Input.GetKeyDown(((char)i).ToString())) {
+                source.Play();
                 word += (char)i;
                 word = word.ToUpper();
                 cur_word_text.text = word;
             }
         }
         if(Input.GetKeyDown("backspace") && word != "") {
+            source.Play();
             word = word.Remove(word.Length - 1, 1);
             cur_word_text.text = word;
             startTime = Time.time;
@@ -115,6 +119,7 @@ public class keyboardInf : MonoBehaviour
             cur_word_text.text = word;
         }
         if(Input.GetKeyDown("space")) {
+            source.Play();
             word += " ";
             cur_word_text.text = word;
         }
