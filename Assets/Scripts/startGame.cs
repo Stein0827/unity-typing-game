@@ -36,7 +36,6 @@ public class startGame : MonoBehaviour
         else{
             nname = nickname.text;
         }
-        PlayerPrefs.DeleteAll();
         PlayerPrefs.SetString("nick", nname);
         SceneManager.LoadScene("Tutorial Level");
     }
@@ -47,8 +46,10 @@ public class startGame : MonoBehaviour
         else{
             nname = nickname.text;
         }
-        PlayerPrefs.DeleteAll();
         PlayerPrefs.SetString("nick", nname);
+        if(!PlayerPrefs.HasKey("score")){
+            PlayerPrefs.SetInt("score", 0);
+        }
         SceneManager.LoadScene("infiniteLevel");
     }
     void go_hof(){
@@ -58,8 +59,10 @@ public class startGame : MonoBehaviour
         else{
             nname = nickname.text;
         }
-        PlayerPrefs.DeleteAll();
         PlayerPrefs.SetString("nick", nname);
+        if(!PlayerPrefs.HasKey("score")){
+            PlayerPrefs.SetInt("score", 0);
+        }
         SceneManager.LoadScene("hof");
     }
     void go_normal(){
@@ -69,7 +72,6 @@ public class startGame : MonoBehaviour
         else{
             nname = nickname.text;
         }
-        PlayerPrefs.DeleteAll();
         PlayerPrefs.SetString("nick", nname);
         SceneManager.LoadScene("normalLevel");
     }
