@@ -18,6 +18,8 @@ public class keyboardInf : MonoBehaviour
     TextMeshProUGUI cur_word_text;
     float startTime;
     static public int kill_count;
+    static public int use_heal;
+    static public int use_time;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +34,8 @@ public class keyboardInf : MonoBehaviour
         orange = new Color(1f, 0.5f, 0f, 0.2f);
         red = new Color(1f, 0f, 0f, 0.5f);
         kill_count = 0;
+        use_heal = 0;
+        use_time = 0;
         // first row
         Q = GameObject.Find("Q").GetComponent<Image>(); W = GameObject.Find("W").GetComponent<Image>(); E = GameObject.Find("E").GetComponent<Image>();
         R = GameObject.Find("R").GetComponent<Image>(); T = GameObject.Find("T").GetComponent<Image>(); Y = GameObject.Find("Y").GetComponent<Image>();
@@ -111,11 +115,31 @@ public class keyboardInf : MonoBehaviour
         slime_array = GameObject.FindGameObjectsWithTag("Word");
         foreach (GameObject slime in slime_array) {
             if(slime.GetComponent<TextMeshPro>().text == word) {
-                infiniteLvl.score += word.Length;
+                if (use_heal == 2) {
+                    infiniteLvl.health += word.Length;
+                } else {
+                    infiniteLvl.score += word.Length;
+                }
                 word = "";
                 cur_word_text.text = word;
                 Destroy(slime.transform.parent.gameObject);
                 kill_count += 1;
+            }
+        }
+        if (word == "HEAL") {
+            word = "";
+            cur_word_text.text = word;
+            if (infiniteLvl.heal > 0) {
+            use_heal = 1;
+            infiniteLvl.heal -= 1;
+            }
+        }
+        if (word == "TIME") {
+            word = "";
+            cur_word_text.text = word;
+            if (infiniteLvl.time > 0) {
+            use_time = 1;
+            infiniteLvl.time -= 1;
             }
         }
     }
