@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 10bf2e45cf9f15847a2392ce22d1800a
+labels:
+- environments
+- exterior
+- scenes
+- terrain
+timeCreated: 1501964060
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: terrain
+  assetBundleVariant: 

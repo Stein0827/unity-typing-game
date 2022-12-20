@@ -70,7 +70,7 @@ public class canvasL1 : MonoBehaviour
                 Debug.Log(defeated);
                 room_num = Mathf.Floor(mainCamera.transform.position.z/15) + 1;
                 var starting_pos = mainCamera.transform.position + new Vector3(Random.Range(-5.0f, 5.0f), -1.88f, 15.0f);
-                if (GameObject.FindGameObjectsWithTag("Slime").Length < 2 && defeated <= room_num*2+1)
+                if (GameObject.FindGameObjectsWithTag("Slime").Length < 2 && defeated <= room_num*2+1 && mainCamera.transform.position.z < 300f)                
                 {
                     GameObject new_object = Instantiate(projectile_template, starting_pos, Quaternion.identity);
                     GameObject obj = new GameObject("Text");

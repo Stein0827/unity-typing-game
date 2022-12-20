@@ -1,0 +1,1 @@
+Not sure if post processing profiles will work between versions that well but I'm leaving these here for you to try experiencing the same rendering settings I used for my scenes.
