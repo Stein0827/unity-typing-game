@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Slime
   - Word
+  - door
   layers:
   - Default
   - TransparentFX

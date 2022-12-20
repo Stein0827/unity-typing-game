@@ -18,10 +18,19 @@ public class canvasL1 : MonoBehaviour
     string path;
     string[] readText;
     static Rnd rnd;
+    public GameObject column_prefab;
+    private float room_num;
+
+    private float new_camera_z;
+
+    static public int defeated;
     
     // Start is called before the first frame update
     void Start()
     {
+        // room_num = 1;
+        new_camera_z = 16f;
+        defeated = 0;
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
         shooting_delay = 1.5f;  
         projectile_template = (GameObject)Resources.Load("basic slime/Prefabs/Slime_01", typeof(GameObject));  // projectile prefab
@@ -58,8 +67,10 @@ public class canvasL1 : MonoBehaviour
         {            
             if (play_pause_text.text == "Pause")
             {
-                var starting_pos = mainCamera.transform.position + new Vector3(Random.Range(-5.0f, 5.0f), 0.0f, 15.0f);
-                if (GameObject.FindGameObjectsWithTag("Slime").Length < 3)
+                Debug.Log(defeated);
+                room_num = mainCamera.transform.position.z/15 + 1;
+                var starting_pos = mainCamera.transform.position + new Vector3(Random.Range(-5.0f, 5.0f), -1.88f, 15.0f);
+                if (GameObject.FindGameObjectsWithTag("Slime").Length < 2 && defeated <= room_num*2 + 2)
                 {
                     GameObject new_object = Instantiate(projectile_template, starting_pos, Quaternion.identity);
                     GameObject obj = new GameObject("Text");
@@ -87,8 +98,40 @@ public class canvasL1 : MonoBehaviour
                     obj.transform.Rotate(0, 180, 0);
                     new_object.AddComponent<Slime_Animator>();
                 }
+                
+                if(mainCamera.transform.position.z >= new_camera_z){
+                    defeated = 0;
+                }
+
+                if(defeated >= room_num*2 + 2 && GameObject.FindGameObjectsWithTag("Slime").Length > 0){
+                    foreach (GameObject door in GameObject.FindGameObjectsWithTag("door")){
+                        if (door.transform.position == new Vector3(0.0f, 0.0f, mainCamera.transform.position.z + 15)){
+                            Destroy(door);
+                        }
+                    }
+
+                    GameObject l_column = Instantiate(column_prefab, new Vector3(0, 0, 0), Quaternion.identity);
+                    l_column.transform.position = new Vector3(-2f, 0f, mainCamera.transform.position.z + 15);
+                    GameObject r_column = Instantiate(column_prefab, new Vector3(0, 0, 0), Quaternion.identity);
+                    r_column.transform.position = new Vector3(2f, 0f, mainCamera.transform.position.z + 15);
+                    new_camera_z = mainCamera.transform.position.z + 15;
+                }
+
+                // if (GameObject.FindGameObjectsWithTag("Slime").Length == 0){
+                //     mainCamera.transform.position += Vector3.forward*Time.deltaTime;
+                // }
+
             }
             yield return new WaitForSeconds(shooting_delay); // next shot will be shot after this delay
+        }
+        
+    }
+
+    void Update(){
+        if (GameObject.FindGameObjectsWithTag("Slime").Length == 0 && defeated >= room_num*2 + 2 && mainCamera.transform.position.z <= new_camera_z){ 
+            // mainCamera.transform.localPosition = Vector3.MoveTowards (mainCamera.transform.localPosition, new Vector3(0f, 0f, Mathf.Floor((mainCamera.transform.position.z + 15)/15)), Time.deltaTime * 10);
+            // Debug.
+            mainCamera.transform.position += new Vector3(0f,0f,1f) * Time.fixedDeltaTime;
         }
     }
 }

@@ -112,7 +112,9 @@ public class KeyboardL1 : MonoBehaviour
                 word = "";
                 cur_word_text.text = word;
                 Destroy(slime.transform.parent.gameObject);
+                canvasL1.defeated++;
             }
         }
+        
     }
 }

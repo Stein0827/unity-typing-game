@@ -54,6 +54,9 @@ public class level1 : MonoBehaviour
                 GameObject mid_wall = Instantiate(wall_prefab, new Vector3(0, 0, 0), Quaternion.identity);
                 mid_wall.transform.position = new Vector3(-8f + 4f*j, 0.0f, i);
                 mid_wall.transform.Rotate(0f, 180f, 0f);
+                if(j == 2){
+                    mid_wall.tag = "door";
+                }
                 // end_wall.transform.localScale = new Vector3(1.25f, 1f, 1f);
             }
         }

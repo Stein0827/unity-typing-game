@@ -117,7 +117,7 @@ public class infiniteLvl : MonoBehaviour
         {            
             if (play_pause_text.text == "Pause")
             {
-                var starting_pos = new Vector3(Random.Range(-5.0f, 5.0f), 0.0f, 5.0f);
+                var starting_pos = new Vector3(Random.Range(-24.0f, 24.0f), 0.0f, 24.0f);
                 if (GameObject.FindGameObjectsWithTag("Slime").Length < 3)
                 {
                     GameObject slime = Instantiate(slime_template, starting_pos, Quaternion.identity);
