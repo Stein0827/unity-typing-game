@@ -18,7 +18,8 @@ public class KeyboardL1 : MonoBehaviour
     Color red, blue, green, orange, purple, pink;
     TextMeshProUGUI cur_word_text;
     float startTime;
-    private AudioSource source;
+    private AudioSource type_source;
+    private AudioSource dead_source;
 
     // Start is called before the first frame update
     void Start()
@@ -33,7 +34,8 @@ public class KeyboardL1 : MonoBehaviour
         pink = new Color(1f, 0f, 0.5f, 0.2f);
         orange = new Color(1f, 0.5f, 0f, 0.2f);
         red = new Color(1f, 0f, 0f, 0.5f);
-        source = GetComponent<AudioSource>();
+        type_source = GetComponents<AudioSource>()[0];
+        dead_source = GetComponents<AudioSource>()[1];
         // first row
         Q = GameObject.Find("Q").GetComponent<Image>(); W = GameObject.Find("W").GetComponent<Image>(); E = GameObject.Find("E").GetComponent<Image>();
         R = GameObject.Find("R").GetComponent<Image>(); T = GameObject.Find("T").GetComponent<Image>(); Y = GameObject.Find("Y").GetComponent<Image>();
@@ -92,7 +94,7 @@ public class KeyboardL1 : MonoBehaviour
 
         for(int i = 97; i<123; i++) {
             if(Input.GetKeyDown(((char)i).ToString())) {
-                source.Play();
+                type_source.Play();
                 word += (char)i;
                 word = word.ToUpper();
                 cur_word_text.text = word;
@@ -100,7 +102,7 @@ public class KeyboardL1 : MonoBehaviour
         }
         
         if(Input.GetKeyDown("backspace") && word != "") {
-            source.Play();
+            type_source.Play();
             word = word.Remove(word.Length - 1, 1);
             cur_word_text.text = word;
             startTime = Time.time;
@@ -110,7 +112,7 @@ public class KeyboardL1 : MonoBehaviour
             cur_word_text.text = word;
         }
         if(Input.GetKeyDown("space")) {
-            source.Play();
+            type_source.Play();
             word += " ";
             cur_word_text.text = word;
         }
@@ -120,6 +122,7 @@ public class KeyboardL1 : MonoBehaviour
                 word = "";
                 cur_word_text.text = word;
                 animator_script = slime.transform.parent.gameObject.GetComponent<Slime_Animator>();
+                dead_source.Play();
                 Destroy(slime);
                 animator_script.setState(2);
                 canvasL1.defeated++;
