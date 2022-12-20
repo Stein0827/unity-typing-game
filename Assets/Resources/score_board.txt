@@ -1,3 +1,11 @@
 hello	0
 bye	0
 wha	0
+anonymous	0
+im the best	0
+anonymous	10
+anonymous	10
+anonymous	10
+anonymous	30
+anonymous	38
+bruh	67

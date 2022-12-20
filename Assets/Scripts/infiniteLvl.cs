@@ -152,6 +152,14 @@ public class infiniteLvl : MonoBehaviour
     }
 
     void main_menu() {
+        if(!PlayerPrefs.HasKey("score")){
+            PlayerPrefs.SetInt("score", score);
+        }
+        else{
+            if (PlayerPrefs.GetInt("score") < score){
+                PlayerPrefs.SetInt("score", score);
+            }
+        }
         SceneManager.LoadScene("startScreen");
     }
 
