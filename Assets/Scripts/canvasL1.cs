@@ -68,9 +68,9 @@ public class canvasL1 : MonoBehaviour
             if (play_pause_text.text == "Pause")
             {
                 Debug.Log(defeated);
-                room_num = mainCamera.transform.position.z/15 + 1;
+                room_num = Mathf.Floor(mainCamera.transform.position.z/15) + 1;
                 var starting_pos = mainCamera.transform.position + new Vector3(Random.Range(-5.0f, 5.0f), -1.88f, 15.0f);
-                if (GameObject.FindGameObjectsWithTag("Slime").Length < 2 && defeated <= room_num*2 + 2)
+                if (GameObject.FindGameObjectsWithTag("Slime").Length < 2 && defeated <= room_num*2+1)
                 {
                     GameObject new_object = Instantiate(projectile_template, starting_pos, Quaternion.identity);
                     GameObject obj = new GameObject("Text");
@@ -98,14 +98,15 @@ public class canvasL1 : MonoBehaviour
                     obj.transform.Rotate(0, 180, 0);
                     new_object.AddComponent<Slime_Animator>();
                 }
-                
-                if(mainCamera.transform.position.z >= new_camera_z){
-                    defeated = 0;
-                }
 
-                if(defeated >= room_num*2 + 2 && GameObject.FindGameObjectsWithTag("Slime").Length > 0){
+                if(mainCamera.transform.position.z >=  new_camera_z){
+                   defeated = 0;
+                   new_camera_z += 15;
+                }
+                
+                if(defeated >= room_num*2+1 && GameObject.FindGameObjectsWithTag("Slime").Length > 0){
                     foreach (GameObject door in GameObject.FindGameObjectsWithTag("door")){
-                        if (door.transform.position == new Vector3(0.0f, 0.0f, mainCamera.transform.position.z + 15)){
+                        if (door.transform.position == new Vector3(0.0f, 0.0f, Mathf.Floor(mainCamera.transform.position.z) + 15)){
                             Destroy(door);
                         }
                     }
@@ -114,7 +115,9 @@ public class canvasL1 : MonoBehaviour
                     l_column.transform.position = new Vector3(-2f, 0f, mainCamera.transform.position.z + 15);
                     GameObject r_column = Instantiate(column_prefab, new Vector3(0, 0, 0), Quaternion.identity);
                     r_column.transform.position = new Vector3(2f, 0f, mainCamera.transform.position.z + 15);
-                    new_camera_z = mainCamera.transform.position.z + 15;
+                    if(mainCamera.transform.position.z == 0){
+                        new_camera_z = Mathf.Floor(mainCamera.transform.position.z + 15);
+                    }
                 }
 
                 // if (GameObject.FindGameObjectsWithTag("Slime").Length == 0){
@@ -128,7 +131,7 @@ public class canvasL1 : MonoBehaviour
     }
 
     void Update(){
-        if (GameObject.FindGameObjectsWithTag("Slime").Length == 0 && defeated >= room_num*2 + 2 && mainCamera.transform.position.z <= new_camera_z){ 
+        if (GameObject.FindGameObjectsWithTag("Slime").Length == 0 && defeated >= room_num*2+1 && mainCamera.transform.position.z <= new_camera_z){ 
             // mainCamera.transform.localPosition = Vector3.MoveTowards (mainCamera.transform.localPosition, new Vector3(0f, 0f, Mathf.Floor((mainCamera.transform.position.z + 15)/15)), Time.deltaTime * 10);
             // Debug.
             mainCamera.transform.position += new Vector3(0f,0f,1f) * Time.fixedDeltaTime;
