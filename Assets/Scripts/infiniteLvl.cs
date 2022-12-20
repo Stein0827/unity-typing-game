@@ -94,6 +94,7 @@ public class infiniteLvl : MonoBehaviour
             Time.timeScale = 0;
             paragraph.enabled = true;
             paragraph.text = "You have died.";
+            PlayerPrefs.SetInt("score", score);
             paragraph.color = new Color(1f, 0f, 0f);
             play_pause_text.text = "Try Again";
             return_to_menu.gameObject.SetActive(true);
