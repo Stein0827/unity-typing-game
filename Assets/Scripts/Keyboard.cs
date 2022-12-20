@@ -114,7 +114,7 @@ public class Keyboard : MonoBehaviour
                 word = "";
                 cur_word_text.text = word;
                 animator_script = slime.transform.parent.gameObject.GetComponent<Slime_Animator>();
-                Debug.Log(animator_script.getState());
+                Destroy(slime);
                 animator_script.setState(2);
             }
         }
