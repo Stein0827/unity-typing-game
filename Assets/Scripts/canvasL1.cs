@@ -65,6 +65,9 @@ public class canvasL1 : MonoBehaviour
     }
 
     void begin() {
+        if(health == 0) {
+            SceneManager.LoadScene("normalLevel");
+        }
         if(play_pause_text.text == "Start"){
             play_pause_text.text = "Pause";
             paragraph.enabled = false;

@@ -37,7 +37,7 @@ public class Slime_Animator : MonoBehaviour {
             transform.position = new Vector3(transform.position.x, 1f, transform.position.z);
         }
         AnimatorStateInfo animation_state = animation_controller.GetCurrentAnimatorStateInfo(0);
-        if (v.magnitude < 2)
+        if (v.magnitude < 3)
         {
             state = 1;
             animation_controller.SetInteger("state", state);
@@ -49,6 +49,7 @@ public class Slime_Animator : MonoBehaviour {
                 if (animation_state.normalizedTime >= 0.65f)
                 {
                     infiniteLvl.health -= 20;
+                    canvasL1.health -= 20;
                     Destroy(gameObject);
                 }
             }
