@@ -18,6 +18,7 @@ public class story : MonoBehaviour
         skip.onClick.AddListener(go_skip);
         para2.enabled = false;
         para3.enabled = false;
+        Time.timeScale = 1;
         startTime = Time.time;
     }
     
