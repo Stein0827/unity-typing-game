@@ -14,6 +14,8 @@ public class infiniteLvl : MonoBehaviour
     public TextMeshProUGUI paragraph;
     public TextMeshProUGUI health_gui;
     public TextMeshProUGUI score_gui;
+    public TextMeshProUGUI time_gui;
+    public TextMeshProUGUI heal_gui;
     private TextMeshProUGUI play_pause_text;
     
     private float spawning_delay; 
@@ -28,10 +30,13 @@ public class infiniteLvl : MonoBehaviour
     string[] words_complex55;
     string[] words_complex80;
     string[] words_complex95;
-    int chance;
+    int chance, count;
+    float heal_startTime, time_startTime;
 
     static public int health;
     static public int score;
+    static public int time;
+    static public int heal;
     
     // Start is called before the first frame update
     void Start()
@@ -61,9 +66,9 @@ public class infiniteLvl : MonoBehaviour
         words_complex95 = File.ReadAllLines(@"Assets/Words/american-words.95.txt");
         words_easy = File.ReadAllLines(@"Assets/Words/wordlist.txt");
         rnd = new Rnd();
-        health = 100;
-        chance = 100;
-        score = 0;
+        health = 100; chance = 100;
+        score = 0; count = 0; heal = 0; time = 0;
+        heal_startTime = 0f; time_startTime = 0f;
     }
 
     void Update()
@@ -75,17 +80,47 @@ public class infiniteLvl : MonoBehaviour
                 chance -= 5;
             }
             keyboardInf.kill_count = 0;
+            count += 10;
+        }
+        if (count == 20) {
+            if (rnd.Next(2) == 0) {
+                time += 1;
+            } else {
+                heal += 1;
+            }
+            count = 0;
         }
         if (health == 0) {
             Time.timeScale = 0;
             paragraph.enabled = true;
             paragraph.text = "You have died.";
+            paragraph.color = new Color(1f, 0f, 0f);
             play_pause_text.text = "Try Again";
             return_to_menu.gameObject.SetActive(true);
             StopCoroutine("Spawn");
         }
+        if (keyboardInf.use_heal == 1) {
+            keyboardInf.use_heal = 2;
+            heal_startTime = Time.time;
+        }
+        if (keyboardInf.use_heal == 2 && (Time.time - heal_startTime) > 10f) {
+            keyboardInf.use_heal = 0;
+            heal_startTime = 0f;
+        }
+        if (keyboardInf.use_time == 1) {
+            keyboardInf.use_time = 2;
+            time_startTime = Time.time;
+            Time.timeScale = 0.5f;
+        }
+        if (keyboardInf.use_time == 2 && (Time.time - time_startTime) > 5f) {
+            keyboardInf.use_time = 0;
+            time_startTime = 0f;
+            Time.timeScale = 1f;
+        }
         health_gui.text = "HP: " + health.ToString();
         score_gui.text = "Score: " + score.ToString();
+        heal_gui.text = "[HEAL] : " + heal.ToString();
+        time_gui.text = "[TIME] : " + time.ToString();
     }
 
     void begin() {
@@ -118,7 +153,7 @@ public class infiniteLvl : MonoBehaviour
             if (play_pause_text.text == "Pause")
             {
                 var starting_pos = new Vector3(Random.Range(-24.0f, 24.0f), 0.0f, 24.0f);
-                if (GameObject.FindGameObjectsWithTag("Slime").Length < 3)
+                if (GameObject.FindGameObjectsWithTag("Slime").Length < 5)
                 {
                     GameObject slime = Instantiate(slime_template, starting_pos, Quaternion.identity);
                     slime.tag = "Slime";
