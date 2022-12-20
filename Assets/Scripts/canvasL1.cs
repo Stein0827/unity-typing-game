@@ -97,6 +97,7 @@ public class canvasL1 : MonoBehaviour
                     new_object.transform.LookAt(mainCamera.transform);
                     obj.transform.Rotate(0, 180, 0);
                     new_object.AddComponent<Slime_Animator>();
+                    new_object.AddComponent<Collider>();
                 }
 
                 if(mainCamera.transform.position.z >=  new_camera_z){
