@@ -300,9 +300,6 @@ eulogizing
 eviler
 evilest
 factorization
-fagot
-fagot's
-fagots
 familiarize
 familiarized
 familiarizes
@@ -310,8 +307,6 @@ familiarizing
 favorably
 favoritism
 favoritism's
-feces
-feces's
 fertilization
 fertilization's
 fertilize
@@ -1047,8 +1042,6 @@ weaseling
 whir
 whir's
 whirs
-whiskey's
-whiskeys
 whiz
 whiz's
 willful

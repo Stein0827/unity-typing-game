@@ -24,6 +24,7 @@ public class canvasL1 : MonoBehaviour
     private float new_camera_z;
 
     static public int defeated;
+    private GameObject king_slime;
     
     // Start is called before the first frame update
     void Start()
@@ -34,6 +35,7 @@ public class canvasL1 : MonoBehaviour
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
         shooting_delay = 1.5f;  
         projectile_template = (GameObject)Resources.Load("basic slime/Prefabs/Slime_01", typeof(GameObject));  // projectile prefab
+        king_slime = ((GameObject)Resources.Load("basic slime/Prefabs/Slime_01_King", typeof(GameObject)));
         play_pause_text = play_pause.GetComponentInChildren<TextMeshProUGUI>();
         play_pause.onClick.AddListener(begin);
         return_to_menu.onClick.AddListener(main_menu);
@@ -118,6 +120,10 @@ public class canvasL1 : MonoBehaviour
                     if(mainCamera.transform.position.z == 0){
                         new_camera_z = Mathf.Floor(mainCamera.transform.position.z + 15);
                     }
+                }
+
+                if(mainCamera.transform.position.z == 300f){
+
                 }
 
                 // if (GameObject.FindGameObjectsWithTag("Slime").Length == 0){

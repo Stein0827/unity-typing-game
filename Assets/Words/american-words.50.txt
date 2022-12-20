@@ -60,10 +60,6 @@ attitudinizes
 attitudinizing
 backpedaled
 backpedaling
-bastardize
-bastardized
-bastardizes
-bastardizing
 bedeviled
 bedeviling
 behoove
@@ -88,10 +84,6 @@ caftan's
 caftans
 calisthenic
 calisthenics
-cannibalize
-cannibalized
-cannibalizes
-cannibalizing
 canonization
 canonization's
 canonizations
@@ -487,9 +479,6 @@ notarize
 notarized
 notarizes
 notarizing
-numskull
-numskull's
-numskulls
 ocher
 ocher's
 odorless
@@ -788,13 +777,6 @@ winterize
 winterized
 winterizes
 winterizing
-womanize
-womanized
-womanizer
-womanizer's
-womanizers
-womanizes
-womanizing
 yodeler
 yodeler's
 yodelers
