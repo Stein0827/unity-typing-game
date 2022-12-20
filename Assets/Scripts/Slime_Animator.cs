@@ -8,18 +8,16 @@ public class Slime_Animator : MonoBehaviour {
     
     public int state;
     private Animator animation_controller;
-    private float velocity;
-    private float walking_velocity;
+    public float velocity;
     private Camera player_cam;
 	// Use this for initialization
 	void Start ()
     {
         animation_controller = gameObject.AddComponent<Animator>();
         animation_controller.runtimeAnimatorController = Resources.Load("Slime") as RuntimeAnimatorController;
-        velocity = 1f;
+        velocity = keyboardInf.curr_vel;
         player_cam = GameObject.Find("Main Camera").GetComponent<Camera>();
         state = 0;
-        
     }
 
     // Update is called once per frame
@@ -58,7 +56,7 @@ public class Slime_Animator : MonoBehaviour {
                 Debug.Log(animation_controller.GetInteger("state"));
                 velocity = 0f;
                 Debug.Log(animation_controller.GetCurrentAnimatorClipInfo(0)[0].clip.name);
-                if (animation_controller.GetCurrentAnimatorClipInfo(0)[0].clip.name == "Damage_01")
+                if (animation_controller.GetCurrentAnimatorClipInfo(0)[0].clip.name == "Damage_02")
                 {
                     velocity = 0f;
                     if (animation_state.normalizedTime >= 0.65f)
@@ -77,13 +75,4 @@ public class Slime_Animator : MonoBehaviour {
     public int getState() {
         return state;
     }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.name == "Main Camera")
-        {
-            Destroy(gameObject);
-        }
-    }
 }
-

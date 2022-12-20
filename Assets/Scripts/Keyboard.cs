@@ -109,8 +109,6 @@ public class Keyboard : MonoBehaviour
                 animator_script = slime.transform.parent.gameObject.GetComponent<Slime_Animator>();
                 Debug.Log(animator_script.getState());
                 animator_script.setState(2);
-
-                // Destroy(slime.transform.parent.gameObject);
             }
         }
     }

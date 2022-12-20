@@ -7,6 +7,9 @@ using TMPro;
 public class keyboardInf : MonoBehaviour
 {
     private string word;
+    static public float curr_vel;
+    private float velocity_control;
+    public Slime_Animator animator_script;
     GameObject[] slime_array;
     Image Q, W, E, R, T, Y, U, I, O, P;
     Image A, S, D, F, G, H, J, K, L;
@@ -24,6 +27,8 @@ public class keyboardInf : MonoBehaviour
     void Start()
     {
         startTime = 0f;
+        velocity_control = 200f;
+        curr_vel = 1f;
         word = "";
         cur_word_text = GameObject.Find("Current Word").GetComponent<TMPro.TextMeshProUGUI>();
         slime_array = GameObject.FindGameObjectsWithTag("Word");
@@ -122,7 +127,9 @@ public class keyboardInf : MonoBehaviour
                 }
                 word = "";
                 cur_word_text.text = word;
-                Destroy(slime.transform.parent.gameObject);
+                animator_script = slime.transform.parent.gameObject.GetComponent<Slime_Animator>();
+                Destroy(slime);
+                animator_script.setState(2);
                 kill_count += 1;
             }
         }
@@ -141,6 +148,24 @@ public class keyboardInf : MonoBehaviour
             use_time = 1;
             infiniteLvl.time -= 1;
             }
+        }
+        foreach (GameObject slime in slime_array) {
+            if(slime.GetComponent<TextMeshPro>().text == word) {
+                if (use_heal == 2) {
+                    infiniteLvl.health += word.Length;
+                } else {
+                    infiniteLvl.score += word.Length;
+                }
+                word = "";
+                cur_word_text.text = word;
+                animator_script = slime.transform.parent.gameObject.GetComponent<Slime_Animator>();
+                animator_script.setState(2);
+                kill_count += 1;
+            }
+        }
+        if (infiniteLvl.score >= velocity_control) {
+            velocity_control += 200;
+            curr_vel += infiniteLvl.score / 300;
         }
     }
 }

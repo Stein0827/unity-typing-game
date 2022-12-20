@@ -160,17 +160,17 @@ public class infiniteLvl : MonoBehaviour
                     slime.transform.LookAt(mainCamera.transform);
                     slime.AddComponent<Slime_Animator>();
 
-                    GameObject pln  = GameObject.CreatePrimitive(PrimitiveType.Plane);
-                    pln.transform.Rotate(-90, 0, 0);
-                    pln.transform.localScale = new Vector3(0.6f, 1f, 0.1f);
-                    pln.transform.position = slime.transform.position + new Vector3(0f, 1.5f, 0.1f);
-                    pln.transform.SetParent(slime.transform);
-
                     GameObject txtBox = new GameObject("Text");
                     txtBox.tag = "Word";
                     txtBox.transform.position = slime.transform.position;
                     txtBox.transform.position += new Vector3(0f, 1.5f, 0f);
                     txtBox.transform.SetParent(slime.transform);
+
+                    GameObject pln  = GameObject.CreatePrimitive(PrimitiveType.Plane);
+                    pln.transform.Rotate(-90, 0, 0);
+                    pln.transform.localScale = new Vector3(0.6f, 1f, 0.1f);
+                    pln.transform.position = slime.transform.position + new Vector3(0f, 1.5f, 0.1f);
+                    pln.transform.SetParent(txtBox.transform);
                     
                     TextMeshPro t = txtBox.AddComponent<TextMeshPro>();
                     t.color = new Color(0, 0, 0);
