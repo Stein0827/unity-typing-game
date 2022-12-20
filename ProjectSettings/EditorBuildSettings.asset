@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/Scenes/hof.unity
     guid: 39d3741a1984cd64bb29a0d86d4c460a
   - enabled: 1
+    path: Assets/Scenes/storyLevel.unity
+    guid: cba54b2dcc1cb9e42b3e632df0ebce05
+  - enabled: 1
     path: Assets/Scenes/Tutorial Level.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
