@@ -3,11 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.IO;
+using Rnd = System.Random;
+
 
 public class KeyboardL1 : MonoBehaviour
 {
     private string word;
     private Slime_Animator animator_script;
+    private KingSlime_Animator big_animator_script;
+    static Rnd rnd;
     GameObject[] slime_array;
     Image Q, W, E, R, T, Y, U, I, O, P;
     Image A, S, D, F, G, H, J, K, L;
@@ -18,12 +23,15 @@ public class KeyboardL1 : MonoBehaviour
     Color red, blue, green, orange, purple, pink;
     TextMeshProUGUI cur_word_text;
     float startTime;
+    string[] hardWords;
     private AudioSource type_source;
     private AudioSource dead_source;
 
     // Start is called before the first frame update
     void Start()
     {
+        hardWords = File.ReadAllLines(@"Assets/Words/american-words.95.txt");
+        rnd = new Rnd();
         startTime = 0f;
         word = "";
         cur_word_text = GameObject.Find("Current Word").GetComponent<TMPro.TextMeshProUGUI>();
@@ -118,7 +126,7 @@ public class KeyboardL1 : MonoBehaviour
         }
         slime_array = GameObject.FindGameObjectsWithTag("Word");
         foreach (GameObject slime in slime_array) {
-            if(slime.GetComponent<TextMeshPro>().text == word) {
+            if(slime.GetComponent<TextMeshPro>().text == word && slime.transform.parent.tag == "Slime") {
                 word = "";
                 cur_word_text.text = word;
                 animator_script = slime.transform.parent.gameObject.GetComponent<Slime_Animator>();
@@ -126,6 +134,26 @@ public class KeyboardL1 : MonoBehaviour
                 Destroy(slime);
                 animator_script.setState(2);
                 canvasL1.defeated++;
+            }
+            else if (slime.GetComponent<TextMeshPro>().text == word && slime.transform.parent.tag == "KingSlime"){
+                word = "";
+                cur_word_text.text = word;
+                big_animator_script = slime.transform.parent.gameObject.GetComponent<KingSlime_Animator>();
+                big_animator_script.health -= 20;
+                if (big_animator_script.health == 0){
+                    Destroy(slime);
+                    big_animator_script.setState(2);
+                    
+                }
+                else {
+                    big_animator_script.setState(0);
+                    int r = rnd.Next(hardWords.Length);
+                    while (hardWords[r].Contains("'")) {
+                        r = rnd.Next(hardWords.Length);
+                    }
+                    slime.GetComponent<TextMeshPro>().text = hardWords[r].ToUpper();
+                    slime.transform.parent.transform.position = new Vector3(0f, 0f, 140f);
+                }
             }
         }
         
