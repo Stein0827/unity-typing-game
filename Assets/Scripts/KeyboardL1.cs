@@ -7,7 +7,7 @@ using TMPro;
 public class KeyboardL1 : MonoBehaviour
 {
     private string word;
-    public Slime_Animator animator_script;
+    private Slime_Animator animator_script;
     GameObject[] slime_array;
     Image Q, W, E, R, T, Y, U, I, O, P;
     Image A, S, D, F, G, H, J, K, L;
@@ -18,6 +18,7 @@ public class KeyboardL1 : MonoBehaviour
     Color red, blue, green, orange, purple, pink;
     TextMeshProUGUI cur_word_text;
     float startTime;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -90,6 +91,7 @@ public class KeyboardL1 : MonoBehaviour
         for(int i = 97; i<123; i++) {
             if(Input.GetKeyDown(((char)i).ToString())) {
                 word += (char)i;
+                word = word.ToUpper();
                 cur_word_text.text = word;
             }
         }
@@ -113,6 +115,7 @@ public class KeyboardL1 : MonoBehaviour
                 word = "";
                 cur_word_text.text = word;
                 animator_script = slime.transform.parent.gameObject.GetComponent<Slime_Animator>();
+                Destroy(slime);
                 animator_script.setState(2);
                 canvasL1.defeated++;
             }
