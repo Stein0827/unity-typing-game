@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class Slime_Animator : MonoBehaviour {
     
-    private int state;
+    public int state;
     private Animator animation_controller;
     private float velocity;
     private float walking_velocity;
@@ -37,16 +37,14 @@ public class Slime_Animator : MonoBehaviour {
         AnimatorStateInfo animation_state = animation_controller.GetCurrentAnimatorStateInfo(0);
         if (v.magnitude < 2)
         {
-            // set animator to attack
-            // change velocity to slow down
             state = 1;
             animation_controller.SetInteger("state", state);
             // Debug.Log(animation_controller.GetCurrentAnimatorClipInfo(0)[0].clip.name);
             if (animation_controller.GetCurrentAnimatorClipInfo(0)[0].clip.name == "Attack")
             {
-                velocity = 0.1f;
+                velocity = 0f;
                 Debug.Log("in if statement");
-                if (animation_state.normalizedTime >= 0.35f)
+                if (animation_state.normalizedTime >= 0.65f)
                 {
                     infiniteLvl.health -= 20;
                     Destroy(gameObject);
@@ -57,19 +55,18 @@ public class Slime_Animator : MonoBehaviour {
         else {
             animation_controller.SetInteger("state", state);
             if (animation_controller.GetInteger("state") == 2) {
-                animation_controller.SetInteger("state", state);
-                if (animation_controller.GetCurrentAnimatorClipInfo(0)[0].clip.name == "Attack")
+                Debug.Log(animation_controller.GetInteger("state"));
+                velocity = 0f;
+                Debug.Log(animation_controller.GetCurrentAnimatorClipInfo(0)[0].clip.name);
+                if (animation_controller.GetCurrentAnimatorClipInfo(0)[0].clip.name == "Damage_01")
                 {
                     velocity = 0f;
-                    if (animation_state.normalizedTime >= 0.35f)
+                    if (animation_state.normalizedTime >= 0.65f)
                     {
                         Destroy(gameObject);
                     }
                 }
             }
-
-            state = 0;
-            animation_controller.SetInteger("state", state);
         }
     }
 
