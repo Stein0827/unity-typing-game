@@ -2548,6 +2548,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   play_pause: {fileID: 6460626152389167625}
   return_to_menu: {fileID: 6460626150449255730}
+  column_prefab: {fileID: 3713104444964819695, guid: 2f3f7d4927009b84583c02fcbc509217, type: 3}
 --- !u!1 &6460626150627482998
 GameObject:
   m_ObjectHideFlags: 0
