@@ -11,6 +11,7 @@ public class Slime_Animator : MonoBehaviour {
     private float velocity;
     private float walking_velocity;
     private Camera player_cam;
+    static public float extra_velocity;
 	// Use this for initialization
 	void Start ()
     {
@@ -19,7 +20,7 @@ public class Slime_Animator : MonoBehaviour {
         velocity = 1f;
         player_cam = GameObject.Find("Main Camera").GetComponent<Camera>();
         state = 0;
-        
+        extra_velocity = 0f;
     }
 
     // Update is called once per frame
@@ -28,7 +29,7 @@ public class Slime_Animator : MonoBehaviour {
         // Debug.Log(state);
         Vector3 v = player_cam.transform.position - transform.position;
         Vector3 d = v / v.magnitude;
-        transform.position += new Vector3(d.x, 0f, d.z) * velocity * Time.deltaTime;
+        transform.position += new Vector3(d.x, 0f, d.z) * (velocity + extra_velocity) * Time.deltaTime;
         animation_controller.SetInteger("state", state);
 
         if (transform.position.y > 1f) {
@@ -58,7 +59,7 @@ public class Slime_Animator : MonoBehaviour {
                 Debug.Log(animation_controller.GetInteger("state"));
                 velocity = 0f;
                 Debug.Log(animation_controller.GetCurrentAnimatorClipInfo(0)[0].clip.name);
-                if (animation_controller.GetCurrentAnimatorClipInfo(0)[0].clip.name == "Damage_01")
+                if (animation_controller.GetCurrentAnimatorClipInfo(0)[0].clip.name == "Damage_02")
                 {
                     velocity = 0f;
                     if (animation_state.normalizedTime >= 0.65f)
@@ -76,14 +77,6 @@ public class Slime_Animator : MonoBehaviour {
 
     public int getState() {
         return state;
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.name == "Main Camera")
-        {
-            Destroy(gameObject);
-        }
     }
 }
 
