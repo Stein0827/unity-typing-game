@@ -1,0 +1,3 @@
+hello	0
+bye	0
+wha	0

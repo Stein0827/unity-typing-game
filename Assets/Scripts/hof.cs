@@ -16,13 +16,16 @@ public class hof : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Log(PlayerPrefs.GetInt("score"));
+        Debug.Log(PlayerPrefs.GetString("nick"));
         main_menu.onClick.AddListener(go_back);
         path = @"Assets/Resources/score_board.txt";
+        scores = new Dictionary<string, int>();
         if (new FileInfo(path).Length != 0)   
         {
             add_to_dict();
         }
-        scores = new Dictionary<string, int>();
+        hall_of_fame_IO();
     }
 
     void go_back(){
@@ -78,6 +81,8 @@ public class hof : MonoBehaviour
             while ((curr_line = sr.ReadLine()) != null) {
                 string[] tokens = curr_line.Split("\t");
                 int curr_line_score = System.Int32.Parse(tokens[1]);
+                Debug.Log(tokens);
+                Debug.Log(scores);
                 if (!scores.ContainsKey(tokens[0])) {
                     scores.Add(tokens[0], curr_line_score);
                 }
