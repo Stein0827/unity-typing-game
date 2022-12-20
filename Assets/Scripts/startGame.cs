@@ -60,7 +60,7 @@ public class startGame : MonoBehaviour
         }
         PlayerPrefs.DeleteAll();
         PlayerPrefs.SetString("nick", nname);
-        SceneManager.LoadScene("Tutorial Level");
+        SceneManager.LoadScene("hof");
     }
     void go_normal(){
         if(nickname.text == ""){
