@@ -113,6 +113,10 @@ public class canvasL1 : MonoBehaviour
                     slime.tag = "Slime";
                     slime.transform.LookAt(mainCamera.transform);
                     slime.AddComponent<Slime_Animator>();
+                    slime.AddComponent<Rigidbody>();
+                    slime.GetComponent<Rigidbody>().useGravity = false;
+                    slime.GetComponent<Rigidbody>().isKinematic = true;
+                    slime.GetComponent<Rigidbody>().detectCollisions = true;
 
                     GameObject txtBox = new GameObject("Text");
                     txtBox.tag = "Word";

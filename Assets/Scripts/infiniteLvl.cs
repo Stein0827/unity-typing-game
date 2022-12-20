@@ -11,6 +11,7 @@ public class infiniteLvl : MonoBehaviour
 {
     public Button play_pause;
     public Button return_to_menu;
+    public Toggle hard_mode;
     public TextMeshProUGUI paragraph;
     public TextMeshProUGUI health_gui;
     public TextMeshProUGUI score_gui;
@@ -69,6 +70,16 @@ public class infiniteLvl : MonoBehaviour
         health = 100; chance = 100;
         score = 0; count = 0; heal = 0; time = 0;
         heal_startTime = 0f; time_startTime = 0f;
+        hard_mode.GetComponent<Toggle>().onValueChanged.AddListener(toggle => hrdmode());
+    }
+
+    void hrdmode() {
+        if (hard_mode.isOn) {
+            chance = 100;
+            keyboardInf.curr_vel *= 1.5f;
+        } else {
+            chance = 200;
+        }
     }
 
     void Update()
@@ -139,12 +150,15 @@ public class infiniteLvl : MonoBehaviour
         if(play_pause_text.text == "Start"){
             play_pause_text.text = "Pause";
             paragraph.enabled = false;
+            hard_mode.gameObject.SetActive(false);
             return_to_menu.gameObject.SetActive(false);
             StartCoroutine("Spawn");
             Time.timeScale = 1;
+            hard_mode.interactable = false;
         } else{
             play_pause_text.text = "Start";
             paragraph.enabled = true;
+            hard_mode.gameObject.SetActive(true);
             return_to_menu.gameObject.SetActive(true);
             StopCoroutine("Spawn");
             Time.timeScale = 0;

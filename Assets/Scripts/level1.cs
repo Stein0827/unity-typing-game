@@ -114,18 +114,27 @@ public class level1 : MonoBehaviour
                 GameObject crate = Instantiate(crate_prefab, new Vector3(0, 0, 0), Quaternion.identity);
                 crate.transform.position = new Vector3(x, 0.4571295f, y);
                 crate.transform.Rotate(0f, Random.Range(0.0f, 360.0f), 0f);
+                crate.AddComponent<Rigidbody>();
+                crate.GetComponent<Rigidbody>().useGravity = false;
+                crate.GetComponent<Rigidbody>().isKinematic = true;
                 break;
             case 3:
                 GameObject rock = Instantiate(rock_prefab, new Vector3(0, 0, 0), Quaternion.identity);
-                rock.transform.position = new Vector3(x, 0.5f, y);
+                rock.transform.position = new Vector3(x, 0f, y);
                 rock.transform.Rotate(0f, Random.Range(0.0f, 360.0f), 0f);
+                rock.AddComponent<Rigidbody>();
+                rock.GetComponent<Rigidbody>().useGravity = false;
+                rock.GetComponent<Rigidbody>().isKinematic = true;
                 break;
             case 4:
                 GameObject pot = Instantiate(pot_prefab, new Vector3(0, 0, 0), Quaternion.identity);
-                pot.transform.position = new Vector3(x, 0.0f, y);
+                pot.transform.position = new Vector3(x, 0f, y);
                 pot.transform.Rotate(0f, Random.Range(0.0f, 360.0f), 0f);
                 GameObject particle = Instantiate(pot_particle_prefab, new Vector3(0, 0, 0), Quaternion.identity);
                 particle.transform.position = new Vector3(x, 0.6652534f, y);
+                pot.AddComponent<Rigidbody>();
+                pot.GetComponent<Rigidbody>().useGravity = false;
+                pot.GetComponent<Rigidbody>().isKinematic = true;
                 break;
         }
     }
@@ -133,24 +142,39 @@ public class level1 : MonoBehaviour
     void tableAddons(float x, float z){
         if(Random.value > 0.5f){
             GameObject table = Instantiate(table_prefab, new Vector3(0, 0, 0), Quaternion.identity);
-            table.transform.position = new Vector3(x, 0.0f, z);
+            table.transform.position = new Vector3(x, 0f, z);
+            table.AddComponent<Rigidbody>();
+            table.GetComponent<Rigidbody>().useGravity = false;
+            table.GetComponent<Rigidbody>().isKinematic = true;
             if (Random.value < 0.33f){
                 GameObject chair = Instantiate(chair_prefab, new Vector3(0, 0, 0), Quaternion.identity);
-                chair.transform.position = new Vector3(x + 0.5f, 0f, z - 1f);
+                chair.transform.position = new Vector3(x, 0f, z - 1f);
+                chair.AddComponent<Rigidbody>();
+                chair.GetComponent<Rigidbody>().useGravity = false;
+                chair.GetComponent<Rigidbody>().isKinematic = true;
             }
             if (Random.value < 0.33f){
                 GameObject chair = Instantiate(chair_prefab, new Vector3(0, 0, 0), Quaternion.identity);
                 chair.transform.position = new Vector3(x - 0.5f, 0f, z - 1f);
+                chair.AddComponent<Rigidbody>();
+                chair.GetComponent<Rigidbody>().useGravity = false;
+                chair.GetComponent<Rigidbody>().isKinematic = true;
             }
             if (Random.value < 0.33f){
                 GameObject chair = Instantiate(chair_prefab, new Vector3(0, 0, 0), Quaternion.identity);
                 chair.transform.position = new Vector3(x - 0.5f, 0f, z + 1f);
                 chair.transform.Rotate(0f, 180f, 0f);
+                chair.AddComponent<Rigidbody>();
+                chair.GetComponent<Rigidbody>().useGravity = false;
+                chair.GetComponent<Rigidbody>().isKinematic = true;
             }
             if (Random.value < 0.33f){
                 GameObject chair = Instantiate(chair_prefab, new Vector3(0, 0, 0), Quaternion.identity);
                 chair.transform.position = new Vector3(x - 0.5f, 0f, z + 1f);
                 chair.transform.Rotate(0f, 180f, 0f);
+                chair.AddComponent<Rigidbody>();
+                chair.GetComponent<Rigidbody>().useGravity = false;
+                chair.GetComponent<Rigidbody>().isKinematic = true;
             }
 
             int obj1 = Random.Range(1,4);
@@ -158,16 +182,28 @@ public class level1 : MonoBehaviour
                 case 1:
                     GameObject jug = Instantiate(jug_prefab, new Vector3(0, 0, 0), Quaternion.identity);
                     jug.transform.position = new Vector3(x + Random.Range(0.4f, 0.8f), 0.8900766f, z + Random.Range(-0.3f, 0.3f));
+                    jug.AddComponent<Rigidbody>();
+                    jug.GetComponent<Rigidbody>().useGravity = false;
+                    jug.GetComponent<Rigidbody>().isKinematic = true;
                     break;
                 case 2:
                     GameObject book = Instantiate(book_prefab, new Vector3(0, 0, 0), Quaternion.identity);
                     book.transform.position = new Vector3(x + Random.Range(0.4f, 0.8f), 0.9220155f, z + Random.Range(-0.3f, 0.3f));
+                    book.AddComponent<Rigidbody>();
+                    book.GetComponent<Rigidbody>().useGravity = false;
+                    book.GetComponent<Rigidbody>().isKinematic = true;
                     break;
                 case 3:
                     GameObject candle = Instantiate(candle_prefab, new Vector3(0, 0, 0), Quaternion.identity);
                     candle.transform.position = new Vector3(x + Random.Range(0.2f, 0.8f), 0.8842584f, z + Random.Range(0.1f, 0.4f));
+                    candle.AddComponent<Rigidbody>();
+                    candle.GetComponent<Rigidbody>().useGravity = false;
+                    candle.GetComponent<Rigidbody>().isKinematic = true;
                     GameObject bottle = Instantiate(bottle_prefab, new Vector3(0, 0, 0), Quaternion.identity);
                     bottle.transform.position = new Vector3(x + Random.Range(0.2f, 0.8f), 0.891011f, z - Random.Range(0.1f, 0.4f));
+                    bottle.AddComponent<Rigidbody>();
+                    bottle.GetComponent<Rigidbody>().useGravity = false;
+                    bottle.GetComponent<Rigidbody>().isKinematic = true;
                     break;
             }
             int obj2 = Random.Range(1,4);
@@ -175,44 +211,70 @@ public class level1 : MonoBehaviour
                 case 1:
                     GameObject jug = Instantiate(jug_prefab, new Vector3(0, 0, 0), Quaternion.identity);
                     jug.transform.position = new Vector3(x - Random.Range(0.4f, 0.8f), 0.8900766f, z + Random.Range(-0.3f, 0.3f));
+                    jug.AddComponent<Rigidbody>();
+                    jug.GetComponent<Rigidbody>().useGravity = false;
+                    jug.GetComponent<Rigidbody>().isKinematic = true;
                     break;
                 case 2:
                     GameObject book = Instantiate(book_prefab, new Vector3(0, 0, 0), Quaternion.identity);
                     book.transform.position = new Vector3(x - Random.Range(0.4f, 0.8f), 0.9220155f, z + Random.Range(-0.3f, 0.3f));
+                    book.AddComponent<Rigidbody>();
+                    book.GetComponent<Rigidbody>().useGravity = false;
+                    book.GetComponent<Rigidbody>().isKinematic = true;
                     break;
                 case 3:
                     GameObject candle = Instantiate(candle_prefab, new Vector3(0, 0, 0), Quaternion.identity);
                     candle.transform.position = new Vector3(x - Random.Range(0.2f, 0.8f), 0.8842584f, z + Random.Range(0.1f, 0.4f));
+                    candle.AddComponent<Rigidbody>();
+                    candle.GetComponent<Rigidbody>().useGravity = false;
+                    candle.GetComponent<Rigidbody>().isKinematic = true;
                     GameObject bottle = Instantiate(bottle_prefab, new Vector3(0, 0, 0), Quaternion.identity);
                     bottle.transform.position = new Vector3(x - Random.Range(0.2f, 0.8f), 0.891011f, z - Random.Range(0.1f, 0.4f));
+                    bottle.AddComponent<Rigidbody>();
+                    bottle.GetComponent<Rigidbody>().useGravity = false;
+                    bottle.GetComponent<Rigidbody>().isKinematic = true;
                     break;
             }
 
         }
         else{
             GameObject table = Instantiate(table_prefab, new Vector3(0, 0, 0), Quaternion.identity);
-            table.transform.position = new Vector3(x, 0.0f, z);
+            table.transform.position = new Vector3(x, 0f, z);
             table.transform.Rotate(0f, 90f, 0f);
+            table.AddComponent<Rigidbody>();
+            table.GetComponent<Rigidbody>().useGravity = false;
+            table.GetComponent<Rigidbody>().isKinematic = true;
             if (Random.value < 0.33f){
                 GameObject chair = Instantiate(chair_prefab, new Vector3(0, 0, 0), Quaternion.identity);
-                chair.transform.position = new Vector3(x - 1f, 0f, z + 0.5f);
+                chair.transform.position = new Vector3(x - 1f, 0f, z);
                 chair.transform.Rotate(0f, 90f, 0f);
+                chair.AddComponent<Rigidbody>();
+                chair.GetComponent<Rigidbody>().useGravity = false;
+                chair.GetComponent<Rigidbody>().isKinematic = true;
             }
             if (Random.value < 0.33f){
                 GameObject chair = Instantiate(chair_prefab, new Vector3(0, 0, 0), Quaternion.identity);
                 chair.transform.position = new Vector3(x - 1f, 0f, z - 0.5f);
                 chair.transform.Rotate(0f, 90f, 0f);
-
+                chair.AddComponent<Rigidbody>();
+                chair.GetComponent<Rigidbody>().useGravity = false;
+                chair.GetComponent<Rigidbody>().isKinematic = true;
             }
             if (Random.value < 0.33f){
                 GameObject chair = Instantiate(chair_prefab, new Vector3(0, 0, 0), Quaternion.identity);
                 chair.transform.position = new Vector3(x + 1f, 0f, z - 0.5f);
                 chair.transform.Rotate(0f, 270f, 0f);
+                chair.AddComponent<Rigidbody>();
+                chair.GetComponent<Rigidbody>().useGravity = false;
+                chair.GetComponent<Rigidbody>().isKinematic = true;
             }
             if (Random.value < 0.33f){
                 GameObject chair = Instantiate(chair_prefab, new Vector3(0, 0, 0), Quaternion.identity);
-                chair.transform.position = new Vector3(x + 1f, 0f, z + 0.5f);
+                chair.transform.position = new Vector3(x + 1f, 0f, z);
                 chair.transform.Rotate(0f, 270f, 0f);
+                chair.AddComponent<Rigidbody>();
+                chair.GetComponent<Rigidbody>().useGravity = false;
+                chair.GetComponent<Rigidbody>().isKinematic = true;
             }
 
             int obj1 = Random.Range(1,4);
@@ -220,16 +282,28 @@ public class level1 : MonoBehaviour
                 case 1:
                     GameObject jug = Instantiate(jug_prefab, new Vector3(0, 0, 0), Quaternion.identity);
                     jug.transform.position = new Vector3(x + Random.Range(-0.3f, 0.3f), 0.8900766f, z + Random.Range(0.4f, 0.8f));
+                    jug.AddComponent<Rigidbody>();
+                    jug.GetComponent<Rigidbody>().useGravity = false;
+                    jug.GetComponent<Rigidbody>().isKinematic = true;
                     break;
                 case 2:
                     GameObject book = Instantiate(book_prefab, new Vector3(0, 0, 0), Quaternion.identity);
                     book.transform.position = new Vector3(x + Random.Range(-0.3f, 0.3f), 0.9220155f, z + Random.Range(0.4f, 0.8f));
+                    book.AddComponent<Rigidbody>();
+                    book.GetComponent<Rigidbody>().useGravity = false;
+                    book.GetComponent<Rigidbody>().isKinematic = true;
                     break;
                 case 3:
                     GameObject candle = Instantiate(candle_prefab, new Vector3(0, 0, 0), Quaternion.identity);
                     candle.transform.position = new Vector3(x + Random.Range(0.1f, 0.4f), 0.8842584f, z + Random.Range(0.2f, 0.8f));
+                    candle.AddComponent<Rigidbody>();
+                    candle.GetComponent<Rigidbody>().useGravity = false;
+                    candle.GetComponent<Rigidbody>().isKinematic = true;
                     GameObject bottle = Instantiate(bottle_prefab, new Vector3(0, 0, 0), Quaternion.identity);
                     bottle.transform.position = new Vector3(x - Random.Range(0.1f, 0.4f), 0.891011f, z + Random.Range(0.2f, 0.8f));
+                    bottle.AddComponent<Rigidbody>();
+                    bottle.GetComponent<Rigidbody>().useGravity = false;
+                    bottle.GetComponent<Rigidbody>().isKinematic = true;
                     break;
             }
             int obj2 = Random.Range(1,4);
@@ -237,16 +311,28 @@ public class level1 : MonoBehaviour
                 case 1:
                     GameObject jug = Instantiate(jug_prefab, new Vector3(0, 0, 0), Quaternion.identity);
                     jug.transform.position = new Vector3(x + Random.Range(-0.3f, 0.3f), 0.8900766f, z - Random.Range(0.4f, 0.8f));
+                    jug.AddComponent<Rigidbody>();
+                    jug.GetComponent<Rigidbody>().useGravity = false;
+                    jug.GetComponent<Rigidbody>().isKinematic = true;
                     break;
                 case 2:
                     GameObject book = Instantiate(book_prefab, new Vector3(0, 0, 0), Quaternion.identity);
                     book.transform.position = new Vector3(x + Random.Range(-0.3f, 0.3f), 0.9220155f, z - Random.Range(0.4f, 0.8f));
+                    book.AddComponent<Rigidbody>();
+                    book.GetComponent<Rigidbody>().useGravity = false;
+                    book.GetComponent<Rigidbody>().isKinematic = true;
                     break;
                 case 3:
                     GameObject candle = Instantiate(candle_prefab, new Vector3(0, 0, 0), Quaternion.identity);
                     candle.transform.position = new Vector3(x + Random.Range(0.1f, 0.4f), 0.8842584f, z - Random.Range(0.2f, 0.8f));
+                    candle.AddComponent<Rigidbody>();
+                    candle.GetComponent<Rigidbody>().useGravity = false;
+                    candle.GetComponent<Rigidbody>().isKinematic = true;
                     GameObject bottle = Instantiate(bottle_prefab, new Vector3(0, 0, 0), Quaternion.identity);
                     bottle.transform.position = new Vector3(x - Random.Range(0.1f, 0.4f), 0.891011f, z - Random.Range(0.2f, 0.8f));
+                    bottle.AddComponent<Rigidbody>();
+                    bottle.GetComponent<Rigidbody>().useGravity = false;
+                    bottle.GetComponent<Rigidbody>().isKinematic = true;
                     break;
             }
         }
@@ -256,9 +342,14 @@ public class level1 : MonoBehaviour
         for (int i = 0; i < 3; i++){
             GameObject l_column = Instantiate(light_column_prefab, new Vector3(0, 0, 0), Quaternion.identity);
             l_column.transform.position = new Vector3(5f, 0f, 125f + 7.5f*i);
+            l_column.AddComponent<Rigidbody>();
+            l_column.GetComponent<Rigidbody>().useGravity = false;
+            l_column.GetComponent<Rigidbody>().isKinematic = true;
             GameObject r_column = Instantiate(light_column_prefab, new Vector3(0, 0, 0), Quaternion.identity);
             r_column.transform.position = new Vector3(-5f, 0f, 125f + 7.5f*i);
-            
+            r_column.AddComponent<Rigidbody>();
+            r_column.GetComponent<Rigidbody>().useGravity = false;  
+            r_column.GetComponent<Rigidbody>().isKinematic = true;
         }
     }
 

@@ -77,6 +77,6 @@ public class startGame : MonoBehaviour
             nname = nickname.text;
             PlayerPrefs.SetString("nick", nname);
         }
-        SceneManager.LoadScene("normalLevel");
+        SceneManager.LoadScene("storyLevel");
     }
 }

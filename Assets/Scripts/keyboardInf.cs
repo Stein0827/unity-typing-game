@@ -9,7 +9,7 @@ public class keyboardInf : MonoBehaviour
     private string word;
     static public float curr_vel;
     private float velocity_control;
-    public Slime_Animator animator_script;
+    private Slime_Animator animator_script;
     GameObject[] slime_array;
     Image Q, W, E, R, T, Y, U, I, O, P;
     Image A, S, D, F, G, H, J, K, L;
@@ -23,6 +23,8 @@ public class keyboardInf : MonoBehaviour
     static public int kill_count;
     static public int use_heal;
     static public int use_time;
+    private AudioSource type_source;
+    private AudioSource dead_source;
 
     // Start is called before the first frame update
     void Start()
@@ -42,6 +44,8 @@ public class keyboardInf : MonoBehaviour
         kill_count = 0;
         use_heal = 0;
         use_time = 0;
+        type_source = GetComponents<AudioSource>()[0];
+        dead_source = GetComponents<AudioSource>()[1];
         // first row
         Q = GameObject.Find("Q").GetComponent<Image>(); W = GameObject.Find("W").GetComponent<Image>(); E = GameObject.Find("E").GetComponent<Image>();
         R = GameObject.Find("R").GetComponent<Image>(); T = GameObject.Find("T").GetComponent<Image>(); Y = GameObject.Find("Y").GetComponent<Image>();
@@ -100,12 +104,14 @@ public class keyboardInf : MonoBehaviour
 
         for(int i = 97; i<123; i++) {
             if(Input.GetKeyDown(((char)i).ToString())) {
+                type_source.Play();
                 word += (char)i;
                 word = word.ToUpper();
                 cur_word_text.text = word;
             }
         }
         if(Input.GetKeyDown("backspace") && word != "") {
+            type_source.Play();
             word = word.Remove(word.Length - 1, 1);
             cur_word_text.text = word;
             startTime = Time.time;
@@ -115,6 +121,7 @@ public class keyboardInf : MonoBehaviour
             cur_word_text.text = word;
         }
         if(Input.GetKeyDown("space")) {
+            type_source.Play();
             word += " ";
             cur_word_text.text = word;
         }
@@ -129,6 +136,7 @@ public class keyboardInf : MonoBehaviour
                 word = "";
                 cur_word_text.text = word;
                 animator_script = slime.transform.parent.gameObject.GetComponent<Slime_Animator>();
+                dead_source.Play();
                 Destroy(slime);
                 animator_script.setState(2);
                 kill_count += 1;
