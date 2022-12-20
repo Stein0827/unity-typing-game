@@ -30,49 +30,53 @@ public class startGame : MonoBehaviour
     }
 
     void go_tutorial(){
-        if(nickname.text == ""){
+        if(nickname.text == "" && !PlayerPrefs.HasKey("nick")){
             nname = "anonymous";
+            PlayerPrefs.SetString("nick", nname);
         }
-        else{
+        else if(nickname.text != ""){
             nname = nickname.text;
+            PlayerPrefs.SetString("nick", nname);
         }
-        PlayerPrefs.SetString("nick", nname);
         SceneManager.LoadScene("Tutorial Level");
     }
     void go_infinite(){
-        if(nickname.text == ""){
+        if(nickname.text == "" && !PlayerPrefs.HasKey("nick")){
             nname = "anonymous";
+            PlayerPrefs.SetString("nick", nname);
         }
-        else{
+        else if(nickname.text != ""){
             nname = nickname.text;
+            PlayerPrefs.SetString("nick", nname);
         }
-        PlayerPrefs.SetString("nick", nname);
         if(!PlayerPrefs.HasKey("score")){
             PlayerPrefs.SetInt("score", 0);
         }
         SceneManager.LoadScene("infiniteLevel");
     }
     void go_hof(){
-        if(nickname.text == ""){
+        if(nickname.text == "" && !PlayerPrefs.HasKey("nick")){
             nname = "anonymous";
+            PlayerPrefs.SetString("nick", nname);
         }
-        else{
+        else if(nickname.text != ""){
             nname = nickname.text;
+            PlayerPrefs.SetString("nick", nname);
         }
-        PlayerPrefs.SetString("nick", nname);
         if(!PlayerPrefs.HasKey("score")){
             PlayerPrefs.SetInt("score", 0);
         }
         SceneManager.LoadScene("hof");
     }
     void go_normal(){
-        if(nickname.text == ""){
+        if(nickname.text == "" && !PlayerPrefs.HasKey("nick")){
             nname = "anonymous";
+            PlayerPrefs.SetString("nick", nname);
         }
-        else{
+        else if(nickname.text != ""){
             nname = nickname.text;
+            PlayerPrefs.SetString("nick", nname);
         }
-        PlayerPrefs.SetString("nick", nname);
         SceneManager.LoadScene("normalLevel");
     }
 }
