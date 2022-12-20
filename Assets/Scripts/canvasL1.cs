@@ -69,7 +69,7 @@ public class canvasL1 : MonoBehaviour
             {
                 Debug.Log(defeated);
                 room_num = Mathf.Floor(mainCamera.transform.position.z/15) + 1;
-                var starting_pos = mainCamera.transform.position + new Vector3(Random.Range(-5.0f, 5.0f), -1.88f, 15.0f);
+                var starting_pos = mainCamera.transform.position + new Vector3(Random.Range(-5f, 5f), -1.88f, 15.0f);
                 if (GameObject.FindGameObjectsWithTag("Slime").Length < 2 && defeated <= room_num*2+1)
                 {
                     GameObject new_object = Instantiate(projectile_template, starting_pos, Quaternion.identity);
@@ -97,6 +97,7 @@ public class canvasL1 : MonoBehaviour
                     new_object.transform.LookAt(mainCamera.transform);
                     obj.transform.Rotate(0, 180, 0);
                     new_object.AddComponent<Slime_Animator>();
+                    new_object.AddComponent<Collider>();
                 }
 
                 if(mainCamera.transform.position.z >=  new_camera_z){
